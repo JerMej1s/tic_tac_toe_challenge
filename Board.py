@@ -1,5 +1,6 @@
 import itertools
 
+from audioop import minmax
 from datetime import datetime
 from Timer import Timer, TimeUnit
 
@@ -15,8 +16,9 @@ class Board:
         self.board = [str(i) for i in range(1, 10)]
         self.possible_boards = []
 
-    def update_board(self, cell, player_symbol) -> None:
+    def update_board(self, cell, player_symbol) -> [str]:
         self.board[int(cell) - 1] = player_symbol
+        return self.board
 
     def clear_cell(self, cell) -> None:
         cell_index = int(cell) - 1
@@ -35,7 +37,6 @@ class Board:
 
     def get_valid_moves(self) -> [str]:
         return [i for i in self.board if i not in ['X', 'O']]
-
 
     def get_win_probability(self, player_symbol) -> (float, float):
         execution_timer = Timer(TimeUnit.MILLISECONDS)
