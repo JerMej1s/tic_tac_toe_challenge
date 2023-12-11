@@ -1,9 +1,8 @@
 import random
 
-from PlayerHuman import PlayerHuman
-from PlayerSymbol import PlayerSymbol
+from Player import Player, PlayerSymbol
 
-class ComputerPlayer(PlayerHuman):
+class PlayerComputer(Player):
     def get_move(self, board) -> str:
         new_board = board
         valid_moves = new_board.get_valid_moves()
