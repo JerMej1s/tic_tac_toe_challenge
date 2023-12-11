@@ -3,13 +3,12 @@ import itertools
 from datetime import datetime
 from Timer import Timer, TimeUnit
 
-# TODO: remove duplicate boards and invalid boards
+# TODO: Remove duplicate boards and invalid boards.
 ALL_BOARDS = set(itertools.permutations('XXXXXOOOO', 9))
 
 WINNING_COMBINATIONS = [
     (0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6),
-    (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)
-    ]
+    (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)]
 
 class Board:
     def __init__(self):

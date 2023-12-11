@@ -1,3 +1,6 @@
+from ErrorMessage import ErrorMessage
+from UserInput import UserInput
+
 class Player:
     def __init__(self):
         self.symbol = None # only used when the computer is playing

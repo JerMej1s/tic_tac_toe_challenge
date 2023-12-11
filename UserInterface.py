@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from ErrorMessage import ErrorMessage
 from Game import PlayerSymbol
