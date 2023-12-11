@@ -3,7 +3,7 @@ import random
 from PlayerHuman import PlayerHuman
 from PlayerSymbol import PlayerSymbol
 
-class ComputerPlayer(PlayerHuman):
+class PLayerComputer(PlayerHuman):
     def get_move(self, board) -> str:
         new_board = board
         valid_moves = new_board.get_valid_moves()
@@ -16,11 +16,12 @@ class ComputerPlayer(PlayerHuman):
 
                 if game_over:
                     new_board.clear_cell(valid_move)
-                    return valid_move
+                    valid_move = valid_move
+                    break
                 else:
                     new_board.clear_cell(valid_move)
-            
-            valid_move = None
+                    valid_move = None
+                    break
             
             return valid_move
 

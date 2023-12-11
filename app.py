@@ -1,4 +1,4 @@
-from PlayerComputer import ComputerPlayer
+from PlayerComputer import PLayerComputer
 from DataService import DataWarehouse
 from Game import Game
 from PlayerHuman import PlayerHuman
@@ -15,7 +15,7 @@ playing = True
 
 while playing:
     player = PlayerHuman()
-    computer_player = ComputerPlayer()
+    computer_player = PLayerComputer()
     game = Game()
     data_warehouse = DataWarehouse()
     game_timer = Timer(TimeUnit.SECONDS)
