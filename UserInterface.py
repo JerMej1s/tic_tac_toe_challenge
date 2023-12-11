@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from ErrorMessage import ErrorMessage
-from Game import PlayerSymbol
+from Player import PlayerSymbol
 from Timer import TimeUnit
 from UserInput import UserInput
 

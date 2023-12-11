@@ -1,7 +1,7 @@
 import os
 import pickle
 
-from PlayerSymbol import PlayerSymbol
+from Player import PlayerSymbol
 
 class DataWarehouse:
     def __init__(self):

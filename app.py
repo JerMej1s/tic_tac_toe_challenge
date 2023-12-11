@@ -1,8 +1,9 @@
-from PlayerComputer import ComputerPlayer
+from PlayerComputer import PlayerComputer
 from DataService import DataWarehouse
 from Game import Game
+from Player import PlayerSymbol
 from PlayerHuman import PlayerHuman
-from PlayerSymbol import PlayerSymbol
+# from PlayerSymbol import PlayerSymbol
 from Timer import Timer, TimeUnit
 from UserInput import UserInput
 from UserInterface import UserInterface
@@ -15,7 +16,7 @@ playing = True
 
 while playing:
     player = PlayerHuman()
-    computer_player = ComputerPlayer()
+    computer_player = PlayerComputer()
     game = Game()
     data_warehouse = DataWarehouse()
     game_timer = Timer(TimeUnit.SECONDS)

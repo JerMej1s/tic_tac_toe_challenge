@@ -1,5 +1,5 @@
 from Board import Board
-from PlayerSymbol import PlayerSymbol
+from Player import PlayerSymbol
 
 class Game:
     def __init__(self) -> None:
