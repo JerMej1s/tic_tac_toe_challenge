@@ -41,7 +41,7 @@ On the computer's turn, the computer will choose a move based on the following p
 
 ## Artificial Intelligence Player Strategy 🧠
 
-🚧 This player is under construction and not currently ready for game play. 🚧
+🚧 This player is under construction on the `develop_ai` branch and not ready for game play. 🚧
 
 ## Win Probability 🎲
 
