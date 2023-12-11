@@ -1,7 +1,7 @@
-from ComputerPlayer import ComputerPlayer
+from PlayerComputer import ComputerPlayer
 from DataWarehouse import DataWarehouse
 from Game import Game
-from Player import Player
+from PlayerHuman import PlayerHuman
 from PlayerSymbol import PlayerSymbol
 from Timer import Timer, TimeUnit
 from UserInput import UserInput
@@ -14,7 +14,7 @@ ui = UserInterface()
 playing = True
 
 while playing:
-    player = Player()
+    player = PlayerHuman()
     computer_player = ComputerPlayer()
     game = Game()
     data_warehouse = DataWarehouse()
