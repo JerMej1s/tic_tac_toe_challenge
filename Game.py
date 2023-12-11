@@ -1,13 +1,12 @@
-from datetime import datetime
-
 from Board import Board
+from PlayerSymbol import PlayerSymbol
 
 class Game:
     def __init__(self) -> None:
         self.board = Board()
         self.player_x_turn_duration = 0
         self.player_o_turn_duration = 0
-        self.current_player = 'X'
+        self.current_player = PlayerSymbol.X.value
         self.winner = None
         self.duration = None
 
@@ -18,23 +17,12 @@ class Game:
         print("Thanks for playing! Goodbye world!\n")
 
     def switch_player(self,) -> None:
-        self.current_player = 'O' if self.current_player == 'X' else 'X'
-
-    def do_play_again(self) -> bool:
-        while True:
-            user_input = (input("\nDo you want to play again? [y/n/q]: ")
-                          .lower())
-            
-            if user_input == 'n' or user_input == 'q':
-                return False
-            elif user_input == 'y':
-                return True
-            else:
-                print("Invalid input. Please try again.")
-                continue
+        self.current_player = (PlayerSymbol.O.value
+                               if self.current_player == PlayerSymbol.X.value
+                               else PlayerSymbol.X.value)
 
     def tabulate_turn_duration(self, turn_duration) -> None:
-        if self.current_player == 'X':
+        if self.current_player == PlayerSymbol.X.value:
             self.player_x_turn_duration += turn_duration
         else:
             self.player_o_turn_duration += turn_duration
@@ -46,13 +34,3 @@ class Game:
             print("It's a draw!\n")
         else:
             print(f"Player {self.winner} wins!\n")
-    
-    def print_game_details(self) -> None:
-        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-        
-        print(f"Player X took {round(self.player_x_turn_duration, 2)} " +
-                "seconds to play. " +
-              f"Player O took {round(self.player_o_turn_duration, 2)} " +
-                "seconds to play. " +
-              f"Game took {self.duration} seconds to play, " +
-              f"ending at {now}.")

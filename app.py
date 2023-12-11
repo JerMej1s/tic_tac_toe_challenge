@@ -3,9 +3,12 @@ from DataWarehouse import DataWarehouse
 from Game import Game
 from Player import Player
 from Timer import Timer, TimeUnit
+from UserInput import UserInput
+from UserInterface import UserInterface
 
 program_timer = Timer(TimeUnit.SECONDS)
 program_timer.start()
+ui = UserInterface()
 
 playing = True
 
@@ -20,14 +23,14 @@ while playing:
     
     game.start()
 
-    is_computer_playing = computer_player.is_computer_playing()
+    ui.play_with_computer()
 
-    if is_computer_playing is None:
+    if ui.is_computer_playing is None:
         playing = False # user entered 'q' to quit
         break
 
-    if is_computer_playing:
-        is_computer_first = computer_player.does_computer_go_first()
+    if ui.is_computer_playing:
+        is_computer_first, computer_player.symbol = ui.does_computer_go_first()
 
         if is_computer_first == None:
             playing = False
@@ -37,9 +40,11 @@ while playing:
             computer_move = computer_player.get_move(game.board)
             game.board.update_board(computer_move, computer_player.symbol)
 
-        player.symbol = 'O' if computer_player.symbol == 'X' else 'X'
+        player.symbol = (PlayerSymbol.O.value
+                         if computer_player.symbol == PlayerSymbol.X.value
+                         else PlayerSymbol.X.value)
     else:
-        player.symbol = 'X'
+        player.symbol = PlayerSymbol.X.value
 
     game_timer.start()
 
@@ -47,27 +52,29 @@ while playing:
         if not first_turn:
             game.switch_player()
 
-        if game.current_player == player.symbol:
+        if (ui.is_computer_playing
+            and game.current_player == computer_player.symbol):
+            turn_timer = Timer(TimeUnit.MILLISECONDS)
+            turn_timer.start()
+        else:
             turn_timer = Timer(TimeUnit.SECONDS)
             turn_timer.start()
-        elif game.current_player == computer_player.symbol:
-            turn_timer = Timer(TimeUnit.NANOSECONDS)
-            turn_timer.start()
 
-        if  game.current_player == computer_player.symbol:
+        if  (ui.is_computer_playing
+             and game.current_player == computer_player.symbol):
             computer_move = computer_player.get_move(game.board)
             game.board.update_board(computer_move, computer_player.symbol)
         else:
             game.board.print_board()
-            game.board.print_probability(player.symbol)
+            game.board.print_probability(game.current_player)
         
-            user_input = player.get_move(game.board)
+            user_input = player.get_move(game)
 
-            if user_input.lower() == 'q':
+            if user_input.lower() == UserInput.QUIT.value:
                 playing = False
                 break
         
-            game.board.update_board(user_input, player.symbol)
+            game.board.update_board(user_input, game.current_player)
 
         game_over, game.winner = game.board.is_game_over()
         
@@ -80,13 +87,13 @@ while playing:
         game.duration = game_timer.stop()
         game.board.print_board()
         game.print_winner()
-        game.print_game_details()
+        ui.print_game_details(game, computer_player.symbol)
         data_warehouse.save_game_data(game)
 
-        playing = game.do_play_again()
+        playing = ui.is_playing_again()
 
-if playing:
-    data_warehouse.print_historical_game_data()
+game_history = data_warehouse.get_historical_game_data()
+ui.print_historical_game_data(game_history)
 
 #data_warehouse.delete_historical_game_data()
 
