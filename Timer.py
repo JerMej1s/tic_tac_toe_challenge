@@ -5,6 +5,7 @@ from enum import Enum
 class TimeUnit(Enum):
     SECONDS = 's'
     MILLISECONDS = 'ms'
+    NANOSECONDS = 'ns'
 
 class Timer:
     def __init__(self, unit: TimeUnit):
@@ -18,12 +19,16 @@ class Timer:
             self.start_time = time.time()
         elif self.unit is TimeUnit.MILLISECONDS:
             self.start_time = time.time() * 1000
+        elif self.unit is TimeUnit.NANOSECONDS:
+            self.start_time = time.perf_counter_ns()
     
     def stop(self) -> float:
         if self.unit is TimeUnit.SECONDS:
             self.end_time = time.time()
         elif self.unit is TimeUnit.MILLISECONDS:
             self.end_time = time.time() * 1000
+        elif self.unit is TimeUnit.NANOSECONDS:
+            self.end_time = time.perf_counter_ns()
 
         self.duration = self.end_time - self.start_time
         

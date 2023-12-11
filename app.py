@@ -52,7 +52,7 @@ while playing:
             turn_timer = Timer(TimeUnit.SECONDS)
             turn_timer.start()
         elif game.current_player == computer_player.symbol:
-            turn_timer = Timer(TimeUnit.MILLISECONDS)
+            turn_timer = Timer(TimeUnit.NANOSECONDS)
             turn_timer.start()
 
         if  game.current_player == computer_player.symbol:
