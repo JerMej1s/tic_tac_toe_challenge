@@ -27,11 +27,12 @@ while playing:
     ui.play_with_computer()
 
     if ui.is_computer_playing is None:
-        playing = False # user entered 'q' to quit
+        playing = False # User entered 'q' to quit
         break
 
     if ui.is_computer_playing:
-        is_computer_first, computer_player.symbol = ui.does_computer_go_first()
+        is_computer_first, computer_player.symbol = (
+            ui.does_computer_go_first())
 
         if is_computer_first == None:
             playing = False
@@ -94,7 +95,9 @@ while playing:
         playing = ui.is_playing_again()
 
 game_history = data_warehouse.get_historical_game_data()
-ui.print_historical_game_data(game_history)
+
+if len(game_history) > 0:
+    ui.print_historical_game_data(game_history)
 
 #data_warehouse.delete_historical_game_data()
 
