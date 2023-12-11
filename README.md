@@ -2,7 +2,7 @@
 
 In this standard game of Tic Tac Toe, users can play in the console against a computer player or against another player.
 
-🧠 An [AI player](#artificial-intelligence-player-strategy) is currently under construction.
+🧠 An [AI player](#brain-artificial-intelligence-player-strategy) is currently under construction.
 
 ## 🚸 Motivation
 
