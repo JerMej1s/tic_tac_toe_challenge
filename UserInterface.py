@@ -67,7 +67,7 @@ class UserInterface:
                        else TimeUnit.SECONDS.value)
         o_time_unit = (TimeUnit.MILLISECONDS.value
                        if self.play_with_computer
-                       and symbol != PlayerSymbol.X.value
+                       and symbol == PlayerSymbol.O.value
                        else TimeUnit.SECONDS.value)
         
         print(f"Player X took {round(game.player_x_turn_duration, 2)} " +
@@ -112,7 +112,10 @@ class UserInterface:
                     f"to play and {winner_message}. " +
                     f"X took {x_turn_duration} seconds to play and " +
             f"O took {o_turn_duration} seconds to play.")
-        
+
+        # TODO: Handle case with mixed time units for same player,
+        #       i.e., multiple-game sessions where the computer
+        #       played as X and O.
         print(f"\nOut of {game_count} game(s), " +
             f"X won {x_win_percentage}% and " +
             f"O won {o_win_percentage}%. Congratulations!\n" +

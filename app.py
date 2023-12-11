@@ -2,6 +2,7 @@ from ComputerPlayer import ComputerPlayer
 from DataWarehouse import DataWarehouse
 from Game import Game
 from Player import Player
+from PlayerSymbol import PlayerSymbol
 from Timer import Timer, TimeUnit
 from UserInput import UserInput
 from UserInterface import UserInterface
