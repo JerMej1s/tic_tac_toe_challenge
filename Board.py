@@ -36,19 +36,17 @@ class Board:
     def get_valid_moves(self) -> [str]:
         return [i for i in self.board if i not in ['X', 'O']]
 
-
     def get_win_probability(self, player_symbol) -> (float, float):
         execution_timer = Timer(TimeUnit.MILLISECONDS)
         execution_timer.start()
 
         num_wins = 0
 
-        if not self.possible_boards:
-            self.possible_boards = ([board for board in ALL_BOARDS 
-                                     if all(b == s for b, s
-                                            in zip(board, self.board)
-                                            if not s
-                                            in map(str, range(1, 10)))])
+        self.possible_boards = ([board for board in ALL_BOARDS 
+                                    if all(b == s for b, s
+                                        in zip(board, self.board)
+                                        if not s
+                                        in map(str, range(1, 10)))])
 
         possible_wins = ([board for board in self.possible_boards
                           if any(board[wc[0]] == board[wc[1]] == board[wc[2]]

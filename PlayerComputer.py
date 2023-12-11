@@ -1,7 +1,6 @@
 import random
 
 from Player import Player, PlayerSymbol
-#from PlayerSymbol import PlayerSymbol
 
 class PlayerComputer(Player):
     def get_move(self, board) -> str:

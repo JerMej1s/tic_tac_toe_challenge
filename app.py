@@ -1,9 +1,8 @@
-from PlayerComputer import PlayerComputer
 from DataService import DataWarehouse
 from Game import Game
 from Player import PlayerSymbol
+from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
-# from PlayerSymbol import PlayerSymbol
 from Timer import Timer, TimeUnit
 from UserInput import UserInput
 from UserInterface import UserInterface
