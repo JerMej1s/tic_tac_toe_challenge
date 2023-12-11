@@ -46,7 +46,6 @@ while playing:
     while not game_over:
         if not first_turn:
             game.switch_player()
-            player.symbol = game.current_player
 
         if game.current_player == player.symbol:
             turn_timer = Timer(TimeUnit.SECONDS)
@@ -70,7 +69,7 @@ while playing:
         
             game.board.update_board(user_input, player.symbol)
 
-            game_over, game.winner = game.board.is_game_over()
+        game_over, game.winner = game.board.is_game_over()
         
         first_turn = False
 

@@ -46,12 +46,17 @@ class ComputerPlayer(Player):
             for valid_move in valid_moves:
                 board.update_board(valid_move, symbol)
                 
-                if board.is_game_over():
+                game_over, _ = board.is_game_over()
+
+                if game_over:
                     board.clear_cell(valid_move)
                     return valid_move
                 else:
                     board.clear_cell(valid_move)
-                    continue
+            
+            valid_move = None
+            
+            return valid_move
 
         # Try to win
         move = check_for_win(self.symbol)
