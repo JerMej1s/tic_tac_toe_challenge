@@ -34,6 +34,14 @@ class ComputerPlayer(PlayerHuman):
             move = check_for_win(opponent_symbol)
 
         if move is None:
+            # Choose a random corner or center
+            center_and_corners = ['1', '3', '5', '7', '9']
+            valid_center_and_corners = ([corner for corner 
+                                         in center_and_corners
+                                         if corner in valid_moves])
+            move = str(random.choice(valid_center_and_corners))
+
+        if move is None:
             # Choose a random move
             move = str(random.choice(valid_moves))
 

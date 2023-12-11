@@ -1,5 +1,5 @@
 from PlayerComputer import ComputerPlayer
-from DataWarehouse import DataWarehouse
+from DataService import DataWarehouse
 from Game import Game
 from PlayerHuman import PlayerHuman
 from PlayerSymbol import PlayerSymbol
