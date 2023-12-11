@@ -5,19 +5,20 @@ from PlayerSymbol import PlayerSymbol
 
 class ComputerPlayer(PlayerHuman):
     def get_move(self, board) -> str:
-        valid_moves = board.get_valid_moves()
+        new_board = board
+        valid_moves = new_board.get_valid_moves()
 
         def check_for_win(symbol) -> str:
             for valid_move in valid_moves:
-                board.update_board(valid_move, symbol)
+                new_board.update_board(valid_move, symbol)
                 
-                game_over, _ = board.is_game_over()
+                game_over, _ = new_board.is_game_over()
 
                 if game_over:
-                    board.clear_cell(valid_move)
+                    new_board.clear_cell(valid_move)
                     return valid_move
                 else:
-                    board.clear_cell(valid_move)
+                    new_board.clear_cell(valid_move)
             
             valid_move = None
             
