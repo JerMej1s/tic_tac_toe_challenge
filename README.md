@@ -6,7 +6,7 @@ An [AI player 🧠](#artificial-intelligence-player-strategy) is currently under
 
 ## Motivation 🚸
 
-I built this application for a coding challenge that was part of a job interview.
+I built this application for a coding challenge that was for a job interview.
 
 ## The Challenge 🧑‍💻
 
@@ -25,11 +25,11 @@ The user will input 1-9 to select which box to mark. It will inform the user who
 When the game finishes, it will say who won, how long each player took on their turn, and the total time spent in the game. They will then receive a prompt to either start a new game, or quit. Inputting “Q” always results in quitting.
 
 Upon quitting, it displays:
-    * the win percentage for X and O over the entire course of the program running
-    * the duration of each game and who won
-    * the total time spent by each player
-    * the total time the program was running
-    * it ends with a timestamp.
+  * the win percentage for X and O over the entire course of the program running
+  * the duration of each game and who won
+  * the total time spent by each player
+  * the total time the program was running
+  * it ends with a timestamp.
 
 ## Computer Player Strategy 💻
 
@@ -53,7 +53,3 @@ During the game, on each human player's turn, the program calculates the probabi
   * Of the remaining boards, the program will determine and count those which result in a win for the current player.
     * The program checks if any of the positions in a winning combination contain the current player's symbol. If they match, it means the player has a winning combination on the board.
   * With the total number of "possible" remaining winning combinations and the total number of "possible" remaining boards, the probability is calculated and returned.
-
-    ```
-    win_count / possible_board_count = win_probability
-    ```
