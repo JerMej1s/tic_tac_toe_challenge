@@ -3,9 +3,16 @@ from Game import Game
 from Player import PlayerSymbol
 from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
+from Probability import Probability
 from Timer import Timer, TimeUnit
 from UserInput import UserInput
 from UserInterface import UserInterface
+
+player = PlayerHuman()
+computer_player = PlayerComputer()
+game_timer = Timer(TimeUnit.SECONDS)
+probability = Probability()
+data_warehouse = DataWarehouse()
 
 program_timer = Timer(TimeUnit.SECONDS)
 program_timer.start()
@@ -13,17 +20,13 @@ ui = UserInterface()
 
 playing = True
 
+ui.print_game_start_message()
+
 while playing:
-    player = PlayerHuman()
-    computer_player = PlayerComputer()
     game = Game()
-    data_warehouse = DataWarehouse()
-    game_timer = Timer(TimeUnit.SECONDS)
     first_turn = True
     game_over = False
     
-    game.start()
-
     ui.play_with_computer()
 
     if ui.is_computer_playing is None:
@@ -67,8 +70,9 @@ while playing:
             computer_move = computer_player.get_move(game.board)
             game.board.update_board(computer_move, computer_player.symbol)
         else:
+            ui.print_board_timestamp()
             game.board.print_board()
-            game.board.print_probability(game.current_player)
+            probability.print_probability(game)
         
             user_input = player.get_move(game)
 
@@ -101,7 +105,7 @@ if len(game_history) > 0:
 
 data_warehouse.delete_historical_game_data()
 
-program_run_time = program_timer.stop()
-print(f"\nProgram was running for {program_run_time} seconds.")
+ui.print_game_end_message()
 
-game.game_end()
+program_run_time = program_timer.stop()
+print(f"\nProgram was running for {program_run_time} seconds.\n")

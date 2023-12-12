@@ -1,6 +1,9 @@
 from ErrorMessage import ErrorMessage
 from Player import Player
+from Probability import Probability
 from UserInput import UserInput
+
+probability = Probability()
 
 class PlayerHuman(Player):
     def get_move(self, game) -> str:
@@ -17,5 +20,5 @@ class PlayerHuman(Player):
             else:
                 print(ErrorMessage.INVALID_INPUT.value)
                 game.board.print_board()
-                game.board.print_probability(self.symbol)
+                probability.print_probability(game)
                 continue

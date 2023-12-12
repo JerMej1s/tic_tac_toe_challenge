@@ -9,6 +9,21 @@ class UserInterface:
     def __init__(self):
         self.is_computer_playing = None
 
+    def get_timestamp(self) -> str:
+        return datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+    
+    def print_game_start_message(self) -> None:
+        print(f"\nHello world! The game started at {self.get_timestamp()}." +
+              "\n\nLet's play Tic Tac Toe!\n")
+
+    def print_game_end_message(self) -> None:
+        print(f"\nThe game ended at {self.get_timestamp()}!\n\n" +
+              "Thanks for playing! Goodbye world!")
+ 
+    def print_board_timestamp(self) -> None:
+        print("\n\n" +
+              f"The game board was last updated at {self.get_timestamp()}.")
+
     def play_with_computer(self) -> None:
         while True:
             user_input = input("Do you want to play against the computer? " +
