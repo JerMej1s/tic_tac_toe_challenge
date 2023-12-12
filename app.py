@@ -95,6 +95,8 @@ while playing:
         game.print_winner()
         ui.print_game_details(game, computer_player.symbol)
         data_warehouse.save_game_data(game)
+        
+        game.board.reset()
 
         playing = ui.is_playing_again()
 

@@ -14,6 +14,9 @@ class Board:
         cell_index = int(cell) - 1
         self.board[cell_index] = str(cell_index + 1)
 
+    def reset(self) -> None:
+        self.board = [str(i) for i in range(1, 10)]
+
     def print_board(self) -> None:
         print("\n")
         print("\n".join(["|".join(self.board[i:i+3])
