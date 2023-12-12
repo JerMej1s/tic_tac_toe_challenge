@@ -10,7 +10,7 @@ from UserInput import UserInput
 from UserInterface import UserInterface
 
 player = PlayerHuman()
-computer_player = PlayerComputer()
+ai_player = PlayerAI()
 game_timer = Timer(TimeUnit.SECONDS)
 probability = Probability()
 data_warehouse = DataWarehouse()
@@ -24,8 +24,6 @@ playing = True
 ui.print_game_start_message()
 
 while playing:
-    player = PlayerHuman()
-    ai_player = PlayerAI()
     game = Game()
     first_turn = True
     game_over = False
