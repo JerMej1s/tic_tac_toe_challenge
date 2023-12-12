@@ -1,12 +1,12 @@
 # Tic Tac Toe
 
-In this standard game of Tic Tac Toe, users can play in the console against a computer player or against another player.
+In this standard game of Tic Tac Toe, users can play in the console against a computer player or against another human player.
 
 An [AI player 🧠](#artificial-intelligence-player-strategy) is currently under construction.
 
 ## Motivation 🚸
 
-I built this application for a coding challenge that was for a job interview.
+This program for a coding challenge that was for a job interview.
 
 ## The Challenge 🧑‍💻
 
@@ -33,7 +33,7 @@ Upon quitting, it displays:
 
 ## Computer Player Strategy 💻
 
-On the computer's turn, the computer will choose a move based on the following prioritized criteria:
+On the computer player's turn, the program will choose a move based on the following prioritized criteria:
   * A move that results in an immeditate win for the computer player.
   * A move that blocks an opponent's win on their next turn.
   * A random available center or corner cell on the board.
@@ -47,7 +47,7 @@ On the computer's turn, the computer will choose a move based on the following p
 
 During the game, on each human player's turn, the program calculates the probability that the human player will win the game based on the current state of the game board:
   * First, the program will generate a `set` of all possible permutations of the five Xs and four Os on the board.
-    * 📢 Note that this set contains duplicate boards and invalid game boards, and thus, is significantly larger than a set containing all possible game outcomes, and impacts the accuracy of the calculated probability.
+    * 📢 Note that this set contains duplicate boards and invalid game boards, and thus, is significantly larger than a set containing all possible game outcomes, which impacts the accuracy of the calculated probability.
   * Next, the program will check whether each board is a valid future state of the current board.
     * A `zip()` function is used to iterate over each non-empty cell in the current board and the corresponding cell in each "possible" board at the same time. If the cells do not match, the board is eliminated as a possible end-state.
   * Of the remaining boards, the program will determine and count those which result in a win for the current player.
