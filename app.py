@@ -99,7 +99,7 @@ game_history = data_warehouse.get_historical_game_data()
 if len(game_history) > 0:
     ui.print_historical_game_data(game_history)
 
-#data_warehouse.delete_historical_game_data()
+data_warehouse.delete_historical_game_data()
 
 program_run_time = program_timer.stop()
 print(f"\nProgram was running for {program_run_time} seconds.")
