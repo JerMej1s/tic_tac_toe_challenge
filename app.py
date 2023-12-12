@@ -1,32 +1,38 @@
-from PlayerComputer import PLayerComputer
 from DataService import DataWarehouse
 from Game import Game
+from Player import PlayerSymbol
+from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
-from PlayerSymbol import PlayerSymbol
+from Probability import Probability
 from Timer import Timer, TimeUnit
 from UserInput import UserInput
 from UserInterface import UserInterface
 
 program_timer = Timer(TimeUnit.SECONDS)
 program_timer.start()
+
 ui = UserInterface()
+player = PlayerHuman()
+game_timer = Timer(TimeUnit.SECONDS)
+probability = Probability()
+data_warehouse = DataWarehouse()
 
 playing = True
+
+ui.print_game_start_message()
 
 while playing:
     player = PlayerHuman()
     computer_player = PLayerComputer()
     game = Game()
-    data_warehouse = DataWarehouse()
-    game_timer = Timer(TimeUnit.SECONDS)
     first_turn = True
     game_over = False
     
-    game.start()
-
     ui.play_with_computer()
 
-    if ui.is_computer_playing is None:
+    if ui.is_computer_playing == True:
+        computer_player = PlayerComputer()
+    elif ui.is_computer_playing is None:
         playing = False # User entered 'q' to quit
         break
 
@@ -67,8 +73,9 @@ while playing:
             computer_move = computer_player.get_move(game.board)
             game.board.update_board(computer_move, computer_player.symbol)
         else:
+            ui.print_board_timestamp()
             game.board.print_board()
-            game.board.print_probability(game.current_player)
+            probability.print_probability(game)
         
             user_input = player.get_move(game)
 
@@ -91,6 +98,8 @@ while playing:
         game.print_winner()
         ui.print_game_details(game, computer_player.symbol)
         data_warehouse.save_game_data(game)
+        
+        game.board.reset()
 
         playing = ui.is_playing_again()
 
@@ -99,9 +108,9 @@ game_history = data_warehouse.get_historical_game_data()
 if len(game_history) > 0:
     ui.print_historical_game_data(game_history)
 
-#data_warehouse.delete_historical_game_data()
+data_warehouse.delete_historical_game_data()
+
+ui.print_game_end_message()
 
 program_run_time = program_timer.stop()
-print(f"\nProgram was running for {program_run_time} seconds.")
-
-game.game_end()
+print(f"\nProgram was running for {program_run_time} seconds.\n")
