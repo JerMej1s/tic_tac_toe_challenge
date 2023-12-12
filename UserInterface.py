@@ -14,19 +14,19 @@ class UserInterface:
     
     def print_game_start_message(self) -> None:
         print(f"\nHello world! The game started at {self.get_timestamp()}." +
-              "\n\nLet's play Tic Tac Toe!\n")
+              "\n\nLet's play Tic Tac Toe!")
 
     def print_game_end_message(self) -> None:
         print(f"\nThe game ended at {self.get_timestamp()}!\n\n" +
               "Thanks for playing! Goodbye world!")
  
     def print_board_timestamp(self) -> None:
-        print("\n\n" +
+        print("\n" +
               f"The game board was last updated at {self.get_timestamp()}.")
 
     def play_with_computer(self) -> None:
         while True:
-            user_input = input("Do you want to play against the computer? " +
+            user_input = input("\nDo you want to play against the computer? " +
                             "[y/n or q to quit]: ").lower()
             
             if user_input == UserInput.YES.value:

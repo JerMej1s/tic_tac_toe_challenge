@@ -9,15 +9,14 @@ from Timer import Timer, TimeUnit
 from UserInput import UserInput
 from UserInterface import UserInterface
 
+program_timer = Timer(TimeUnit.SECONDS)
+program_timer.start()
+
+ui = UserInterface()
 player = PlayerHuman()
-ai_player = PlayerAI()
 game_timer = Timer(TimeUnit.SECONDS)
 probability = Probability()
 data_warehouse = DataWarehouse()
-
-program_timer = Timer(TimeUnit.SECONDS)
-program_timer.start()
-ui = UserInterface()
 
 playing = True
 
@@ -30,7 +29,9 @@ while playing:
     
     ui.play_with_computer()
 
-    if ui.is_computer_playing is None:
+    if ui.is_computer_playing == True:
+        ai_player = PlayerAI()
+    elif ui.is_computer_playing is None:
         playing = False # User entered 'q' to quit
         break
 
@@ -96,6 +97,8 @@ while playing:
         game.print_winner()
         ui.print_game_details(game, ai_player.symbol)
         data_warehouse.save_game_data(game)
+        
+        game.board.reset()
 
         playing = ui.is_playing_again()
 
