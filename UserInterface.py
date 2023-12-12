@@ -21,7 +21,7 @@ class UserInterface:
               "Thanks for playing! Goodbye world!")
  
     def print_board_timestamp(self) -> None:
-        print("\n\n" +
+        print("\n" +
               f"The game board was last updated at {self.get_timestamp()}.")
 
     def play_with_computer(self) -> None:
