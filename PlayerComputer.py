@@ -8,6 +8,8 @@ class PlayerComputer(Player):
         valid_moves = new_board.get_valid_moves()
 
         def check_for_win(symbol) -> str:
+            best_move = None
+
             for valid_move in valid_moves:
                 new_board.update_board(valid_move, symbol)
                 
@@ -15,14 +17,13 @@ class PlayerComputer(Player):
 
                 if game_over:
                     new_board.clear_cell(valid_move)
-                    valid_move = valid_move
+                    best_move = valid_move
                     break
                 else:
                     new_board.clear_cell(valid_move)
-                    valid_move = None
                     break
             
-            return valid_move
+            return best_move
 
         # Try to win
         move = check_for_win(self.symbol)

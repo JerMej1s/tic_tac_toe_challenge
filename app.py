@@ -23,7 +23,7 @@ ui.print_game_start_message()
 
 while playing:
     player = PlayerHuman()
-    computer_player = PLayerComputer()
+    computer_player = PlayerComputer()
     game = Game()
     first_turn = True
     game_over = False
