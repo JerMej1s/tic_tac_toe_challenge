@@ -4,7 +4,7 @@ In this standard game of Tic Tac Toe, users can play in the console against a co
 
 An [AI player 🧠](#artificial-intelligence-player-strategy) is currently under construction.
 
-## Motivation 🚸
+### Motivation 🚸
 
 This program for a coding challenge that was for a job interview.
 
