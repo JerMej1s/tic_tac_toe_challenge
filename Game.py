@@ -1,20 +1,16 @@
 from Board import Board
 from Player import PlayerSymbol
 
+board = Board()
+
 class Game:
     def __init__(self) -> None:
-        self.board = Board()
+        self.board = board
         self.player_x_turn_duration = 0
         self.player_o_turn_duration = 0
         self.current_player = PlayerSymbol.X.value
         self.winner = None
         self.duration = None
-
-    def start(self) -> None:
-        print("\nHello world! Let's play Tic Tac Toe!\n")
-
-    def game_end(self) -> None:
-        print("Thanks for playing! Goodbye world!\n")
 
     def switch_player(self,) -> None:
         self.current_player = (PlayerSymbol.O.value
