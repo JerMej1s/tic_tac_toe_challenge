@@ -1,7 +1,8 @@
 from DataService import DataWarehouse
 from Game import Game
 from Player import PlayerSymbol
-from PlayerComputer import PlayerComputer
+from PlayerAI import PlayerAI
+# from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
 from Timer import Timer, TimeUnit
 from UserInput import UserInput
@@ -15,7 +16,7 @@ playing = True
 
 while playing:
     player = PlayerHuman()
-    computer_player = PlayerComputer()
+    ai_player = PlayerAI()
     game = Game()
     data_warehouse = DataWarehouse()
     game_timer = Timer(TimeUnit.SECONDS)
@@ -31,7 +32,7 @@ while playing:
         break
 
     if ui.is_computer_playing:
-        is_computer_first, computer_player.symbol = (
+        is_computer_first, ai_player.symbol = (
             ui.does_computer_go_first())
 
         if is_computer_first == None:
@@ -39,11 +40,11 @@ while playing:
             break
         
         if is_computer_first:
-            computer_move = computer_player.get_move(game.board)
-            game.board.update_board(computer_move, computer_player.symbol)
+            computer_move = ai_player.get_move(game.board)
+            game.board.update_board(computer_move, ai_player.symbol)
 
         player.symbol = (PlayerSymbol.O.value
-                         if computer_player.symbol == PlayerSymbol.X.value
+                         if ai_player.symbol == PlayerSymbol.X.value
                          else PlayerSymbol.X.value)
     else:
         player.symbol = PlayerSymbol.X.value
@@ -55,7 +56,7 @@ while playing:
             game.switch_player()
 
         if (ui.is_computer_playing
-            and game.current_player == computer_player.symbol):
+            and game.current_player == ai_player.symbol):
             turn_timer = Timer(TimeUnit.MILLISECONDS)
             turn_timer.start()
         else:
@@ -63,9 +64,9 @@ while playing:
             turn_timer.start()
 
         if  (ui.is_computer_playing
-             and game.current_player == computer_player.symbol):
-            computer_move = computer_player.get_move(game.board)
-            game.board.update_board(computer_move, computer_player.symbol)
+             and game.current_player == ai_player.symbol):
+            computer_move = ai_player.get_move(game.board)
+            game.board.update_board(computer_move, ai_player.symbol)
         else:
             game.board.print_board()
             game.board.print_probability(game.current_player)
@@ -89,7 +90,7 @@ while playing:
         game.duration = game_timer.stop()
         game.board.print_board()
         game.print_winner()
-        ui.print_game_details(game, computer_player.symbol)
+        ui.print_game_details(game, ai_player.symbol)
         data_warehouse.save_game_data(game)
 
         playing = ui.is_playing_again()
