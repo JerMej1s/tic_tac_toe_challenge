@@ -26,7 +26,7 @@ class DataService:
                     except EOFError:
                         break
         except FileNotFoundError:
-            return historical_game_data
+            pass
 
         return historical_game_data
 
