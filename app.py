@@ -7,8 +7,7 @@ from PlayerAI import PlayerAI
 # from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
 from Timer import Timer, TimeUnit
-from UserInput import UserInput
-from UserInterface import UserInterface
+from UserInterface import UserInput, UserInterface
 
 program_timer = Timer(TimeUnit.SECONDS)
 program_timer.start()
@@ -132,4 +131,4 @@ data_warehouse.delete_historical_game_data()
 ui.print_game_end_message()
 
 program_run_time = program_timer.stop()
-print(f"\nProgram was running for {program_run_time} seconds.\n")
+ui.print_end_program_message(program_run_time)

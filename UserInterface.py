@@ -151,4 +151,6 @@ class UserInterface:
             f"O won {o_win_percentage}%. Congratulations!\n" +
             f"X took a total of {x_turn_duration} seconds to play and " +
             f"O took a total of {o_turn_duration} seconds to play.\n")
-            
+
+    def print_end_program_message(self, run_time) -> None:
+        print(f"\nProgram was running for {run_time} seconds.\n")
