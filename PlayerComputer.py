@@ -8,20 +8,22 @@ class PlayerComputer(Player):
         valid_moves = new_board.get_valid_moves()
 
         def check_for_win(symbol) -> str:
+            best_move = None
+
             for valid_move in valid_moves:
                 new_board.update_board(valid_move, symbol)
                 
-                game_over, _ = new_board.is_game_over()
+                is_game_over, _ = new_board.is_game_over()
 
-                if game_over:
+                if is_game_over:
                     new_board.clear_cell(valid_move)
-                    return valid_move
+                    best_move = valid_move
+                    break
                 else:
                     new_board.clear_cell(valid_move)
+                    continue
             
-            valid_move = None
-            
-            return valid_move
+            return best_move
 
         # Try to win
         move = check_for_win(self.symbol)
@@ -39,7 +41,9 @@ class PlayerComputer(Player):
             valid_center_and_corners = ([corner for corner 
                                          in center_and_corners
                                          if corner in valid_moves])
-            move = str(random.choice(valid_center_and_corners))
+            
+            if len(valid_center_and_corners) > 0:
+                move = str(random.choice(valid_center_and_corners))
 
         if move is None:
             # Choose a random move

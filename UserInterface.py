@@ -1,9 +1,14 @@
 from datetime import datetime
+from enum import Enum
 
 from ErrorMessage import ErrorMessage
 from Player import PlayerSymbol
 from Timer import TimeUnit
-from UserInput import UserInput
+
+class UserInput(Enum):
+    YES = 'y'
+    NO = 'n'
+    QUIT = 'q'
 
 class UserInterface:
     def __init__(self):
@@ -23,6 +28,17 @@ class UserInterface:
     def print_board_timestamp(self) -> None:
         print("\n" +
               f"The game board was last updated at {self.get_timestamp()}.")
+
+    def print_board(self, board) -> None:
+        print("\n")
+        print("\n".join(["|".join(board[i:i+3])
+                        for i in range(0, 9, 3)]))
+        print("\n")
+
+    def print_probability(self, player_symbol, probability, duration) -> None:
+        print(f"Player {player_symbol} has a " +
+                f"{probability}% chance of winning, " +
+                f"which took {duration} milliseconds to calculate.")
 
     def play_with_computer(self) -> None:
         while True:

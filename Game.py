@@ -1,11 +1,7 @@
-from Board import Board
 from Player import PlayerSymbol
-
-board = Board()
 
 class Game:
     def __init__(self) -> None:
-        self.board = board
         self.player_x_turn_duration = 0
         self.player_o_turn_duration = 0
         self.current_player = PlayerSymbol.X.value

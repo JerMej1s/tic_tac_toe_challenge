@@ -6,7 +6,8 @@ class PlayerSymbol(Enum):
 
 class Player:
     def __init__(self):
-        self.symbol = None # Not used when the computer isn't playing
+        self.symbol = None # Do not use in human vs. human games.
+                           # Instead, use game.curent_player.
 
     def get_move(self, game) -> str:
         pass

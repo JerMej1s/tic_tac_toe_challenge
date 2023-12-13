@@ -1,10 +1,11 @@
-from DataService import DataWarehouse
+from Board import Board
+from DataService import DataService
+from ErrorMessage import ErrorMessage
 from Game import Game
 from Player import PlayerSymbol
 from PlayerAI import PlayerAI
 # from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
-from Probability import Probability
 from Timer import Timer, TimeUnit
 from UserInput import UserInput
 from UserInterface import UserInterface
@@ -15,19 +16,21 @@ program_timer.start()
 ui = UserInterface()
 player = PlayerHuman()
 game_timer = Timer(TimeUnit.SECONDS)
-probability = Probability()
-data_warehouse = DataWarehouse()
+data_warehouse = DataService()
 
-playing = True
+is_playing = True
 
 ui.print_game_start_message()
 
-while playing:
+while is_playing:
+    player = PlayerHuman()
+    computer_player = PlayerComputer()
     game = Game()
-    first_turn = True
-    game_over = False
+    board = Board()
+    is_first_turn = True
+    is_game_over = False
     
-    ui.play_with_computer()
+    ui.play_with_computer()    
 
     if ui.is_computer_playing == True:
         ai_player = PlayerAI()
@@ -40,67 +43,84 @@ while playing:
             ui.does_computer_go_first())
 
         if is_computer_first == None:
-            playing = False
+            is_playing = False
             break
         
         if is_computer_first:
-            computer_move = ai_player.get_move(game.board)
-            game.board.update_board(computer_move, ai_player.symbol)
+            computer_move = ai_player.get_move(board.get_board())
+            board.update_board(computer_move, computer_player.symbol)
 
         player.symbol = (PlayerSymbol.O.value
                          if ai_player.symbol == PlayerSymbol.X.value
                          else PlayerSymbol.X.value)
+    elif ui.is_computer_playing is None:
+        is_playing = False # User entered 'q' to quit
+        break
     else:
         player.symbol = PlayerSymbol.X.value
 
     game_timer.start()
 
-    while not game_over:
-        if not first_turn:
+    while not is_game_over:
+        if not is_first_turn:
             game.switch_player()
 
-        if (ui.is_computer_playing
-            and game.current_player == ai_player.symbol):
+        player_move = None
+
+        if  (ui.is_computer_playing # Non-human player's turn
+             and game.current_player == computer_player.symbol):
             turn_timer = Timer(TimeUnit.MILLISECONDS)
             turn_timer.start()
-        else:
+
+            player_move = computer_player.get_move(board)
+        else: # Human player's turn
             turn_timer = Timer(TimeUnit.SECONDS)
+            probability_timer = Timer(TimeUnit.MILLISECONDS)
             turn_timer.start()
+            probability_timer.start()
+            
+            win_probability = (round(
+                board.get_win_probability(game.current_player) * 100, 2))
+            probability_duration = probability_timer.stop()
 
-        if  (ui.is_computer_playing
-             and game.current_player == ai_player.symbol):
-            computer_move = ai_player.get_move(game.board)
-            game.board.update_board(computer_move, ai_player.symbol)
+            while True:
+                ui.print_board_timestamp()
+                ui.print_board(board.board)
+                ui.print_probability(game.current_player,
+                                     win_probability, probability_duration)
+                
+                user_input = player.get_move(board)
+
+                if user_input in board.get_valid_moves():
+                    player_move = user_input
+                    break
+                elif user_input == UserInput.QUIT.value:
+                    is_playing = False
+                    break
+                else:
+                    print(ErrorMessage.INVALID_INPUT.value)
+                    continue
+            
+        if is_playing:
+            board.update_board(player_move, game.current_player)
+
+            is_game_over, game.winner = board.is_game_over()
+            
+            is_first_turn = False
+
+            turn_duration = turn_timer.stop()
+            game.tabulate_turn_duration(turn_duration)
         else:
-            ui.print_board_timestamp()
-            game.board.print_board()
-            probability.print_probability(game)
-        
-            user_input = player.get_move(game)
+            break
 
-            if user_input.lower() == UserInput.QUIT.value:
-                playing = False
-                break
-        
-            game.board.update_board(user_input, game.current_player)
-
-        game_over, game.winner = game.board.is_game_over()
-        
-        first_turn = False
-
-        turn_duration = turn_timer.stop()
-        game.tabulate_turn_duration(turn_duration)
-
-    if playing:
+    if is_playing:
         game.duration = game_timer.stop()
-        game.board.print_board()
+        ui.print_board(board.board)
         game.print_winner()
         ui.print_game_details(game, ai_player.symbol)
         data_warehouse.save_game_data(game)
-        
-        game.board.reset()
 
-        playing = ui.is_playing_again()
+        is_playing = ui.is_playing_again()
 
 game_history = data_warehouse.get_historical_game_data()
 
