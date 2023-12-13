@@ -1,7 +1,7 @@
 import os
 import pickle
 
-class DataWarehouse:
+class DataService:
     def __init__(self):
         pass
 

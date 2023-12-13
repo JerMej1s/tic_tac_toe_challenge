@@ -1,5 +1,5 @@
 from Board import Board
-from DataService import DataWarehouse
+from DataService import DataService
 from ErrorMessage import ErrorMessage
 from Game import Game
 from Player import PlayerSymbol
@@ -15,7 +15,7 @@ program_timer.start()
 ui = UserInterface()
 player = PlayerHuman()
 game_timer = Timer(TimeUnit.SECONDS)
-data_warehouse = DataWarehouse()
+data_warehouse = DataService()
 
 is_playing = True
 
