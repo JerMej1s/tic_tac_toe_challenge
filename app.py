@@ -41,21 +41,20 @@ while is_playing:
     if ui.is_computer_playing:
         is_computer_first, computer_player.symbol = (
             ui.does_computer_go_first())
-
-        if is_computer_first == None:
-            is_playing = False
-            break
         
         if is_computer_first:
             computer_move = ai_player.get_move(board)
             board.update_board(computer_move, computer_player.symbol)
             is_first_turn = False
+        elif is_computer_first == None: # User entered 'q' to quit
+            is_playing = False
+            break
 
         player.symbol = (PlayerSymbol.O.value
                          if ai_player.symbol == PlayerSymbol.X.value
                          else PlayerSymbol.X.value)
-    elif ui.is_computer_playing is None:
-        is_playing = False # User entered 'q' to quit
+    elif ui.is_computer_playing is None: # User entered 'q' to quit
+        is_playing = False
         break
     else:
         player.symbol = PlayerSymbol.X.value
@@ -68,8 +67,8 @@ while is_playing:
 
         player_move = None
 
-        if  (ui.is_computer_playing # Non-human player's turn
-             and game.current_player == computer_player.symbol):
+        if (ui.is_computer_playing # Non-human player's turn
+            and game.current_player == computer_player.symbol):
             turn_timer = Timer(TimeUnit.MILLISECONDS)
             turn_timer.start()
 
