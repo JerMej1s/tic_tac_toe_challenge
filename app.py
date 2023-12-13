@@ -24,7 +24,7 @@ ui.print_game_start_message(datetime.now())
 
 while is_playing:
     player = PlayerHuman()
-    computer_player = PlayerComputer()
+    computer_player = PlayerAI()
     game = Game()
     board = Board()
     is_first_turn = True
