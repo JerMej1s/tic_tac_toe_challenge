@@ -6,7 +6,7 @@ An [AI player 🧠](#artificial-intelligence-player-strategy) is currently under
 
 ### Motivation 🚸
 
-This program for a coding challenge that was for a job interview.
+This program was built for a coding challenge that was for a job interview.
 
 ## The Challenge 🧑‍💻
 

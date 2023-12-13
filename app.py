@@ -61,7 +61,7 @@ while is_playing:
 
         player_move = None
 
-        if  (ui.is_computer_playing # Computer player's turn
+        if  (ui.is_computer_playing # Non-human player's turn
              and game.current_player == computer_player.symbol):
             turn_timer = Timer(TimeUnit.MILLISECONDS)
             turn_timer.start()
@@ -69,9 +69,10 @@ while is_playing:
             player_move = computer_player.get_move(board)
         else: # Human player's turn
             turn_timer = Timer(TimeUnit.SECONDS)
-            turn_timer.start()
             probability_timer = Timer(TimeUnit.MILLISECONDS)
+            turn_timer.start()
             probability_timer.start()
+            
             win_probability = (round(
                 board.get_win_probability(game.current_player) * 100, 2))
             probability_duration = probability_timer.stop()
