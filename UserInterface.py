@@ -42,6 +42,14 @@ class UserInterface:
                 f"{probability}% chance of winning, " +
                 f"which took {duration} milliseconds to calculate.")
 
+    def print_winner(self, winner) -> None:
+        if winner == None:
+            return
+        elif winner == 'draw':
+            print("It's a draw!\n")
+        else:
+            print(f"Player {winner} wins!\n")
+
     def play_with_computer(self) -> None:
         while True:
             user_input = input("\nDo you want to play against the computer? " +
@@ -67,10 +75,10 @@ class UserInterface:
             
             if user_input == UserInput.YES.value:
                 symbol = PlayerSymbol.O.value
-                return True, symbol
+                return False, symbol
             elif user_input == UserInput.NO.value:
                 symbol = PlayerSymbol.X.value
-                return False, symbol
+                return True, symbol
             elif user_input == UserInput.QUIT.value:
                 return None, None
             else:

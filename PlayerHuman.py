@@ -1,7 +1,4 @@
 from Player import Player
-from UserInterface import UserInterface
-
-ui = UserInterface()
 
 class PlayerHuman(Player):
     def get_move(self, board) -> str:

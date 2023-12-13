@@ -116,8 +116,8 @@ while is_playing:
     if is_playing:
         game.duration = game_timer.stop()
         ui.print_board(board.board)
-        game.print_winner()
-        ui.print_game_details(game, board.updated_at, ai_player.symbol)
+        ui.print_winner(game.winner)
+        ui.print_game_details(game, board.updated_at, computer_player.symbol)
         data_warehouse.save_game_data(game)
 
         is_playing = ui.is_playing_again()
