@@ -1,5 +1,7 @@
 import itertools
 
+from datetime import datetime
+
 # TODO: Remove duplicate boards and invalid boards.
 ALL_BOARDS = set(itertools.permutations('XXXXXOOOO', 9))
 
@@ -11,12 +13,14 @@ class Board:
     def __init__(self):
         self.board = [str(i) for i in range(1, 10)]
         self.possible_boards = []
+        self.updated_at = datetime.now()
 
     def get_board(self) -> [str]:
         return self.board
     
     def update_board(self, cell, player_symbol) -> [str]:
         self.board[int(cell) - 1] = player_symbol
+        self.updated_at = datetime.now()
         return self.board
 
     def clear_cell(self, cell) -> None:
@@ -27,8 +31,6 @@ class Board:
         return [i for i in self.board if i not in ['X', 'O']]
 
     def get_win_probability(self, player_symbol) -> float:
-
-
         num_wins = 0
 
         self.possible_boards = ([board for board in ALL_BOARDS 
