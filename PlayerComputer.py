@@ -2,6 +2,8 @@ import random
 
 from Player import Player, PlayerSymbol
 
+CENTER_AND_CORNERS = ['1', '3', '5', '7', '9']
+
 class PlayerComputer(Player):
     def get_move(self, board) -> str:
         new_board = board
@@ -37,9 +39,8 @@ class PlayerComputer(Player):
 
         if move is None:
             # Choose a random corner or center
-            center_and_corners = ['1', '3', '5', '7', '9']
             valid_center_and_corners = ([corner for corner 
-                                         in center_and_corners
+                                         in CENTER_AND_CORNERS
                                          if corner in valid_moves])
             
             if len(valid_center_and_corners) > 0:
