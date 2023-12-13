@@ -18,11 +18,3 @@ class Game:
             self.player_x_turn_duration += turn_duration
         else:
             self.player_o_turn_duration += turn_duration
-
-    def print_winner(self) -> None:
-        if self.winner == None:
-            return
-        elif self.winner == 'draw':
-            print("It's a draw!\n")
-        else:
-            print(f"Player {self.winner} wins!\n")
