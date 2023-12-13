@@ -39,7 +39,7 @@ The game board is a `list` of nine elements, each representing a cell on the boa
 
 During the game, on each human player's turn, the program estimates the probability that the human player will win the game based on the current state of the game board.
   * First, the program will generate a `set` of all possible permutations of the five Xs and four Os on the board.
-    * 📢 Note: This set contains duplicate boards and invalid game boards, and thus, is significantly larger than a set containing all possible board outcomes, which impacts the accuracy of the calculated probability.
+    > 📢 Note: This set contains duplicate boards and invalid game boards, and thus, is significantly larger than a set containing all possible board outcomes, which impacts the accuracy of the calculated probability.
   * Next, the program will check whether each board is a valid future state of the current board.
     * A `zip()` function is used to iterate over each (non-empty) cell in the current board and the corresponding cell in each "possible" board at the same time. If the cells do not match, the board is eliminated as a possible end-state.
   * Of the remaining boards, the program will determine and count those which result in a win for the current player.
