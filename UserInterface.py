@@ -1,9 +1,14 @@
 from datetime import datetime
+from enum import Enum
 
 from ErrorMessage import ErrorMessage
 from Player import PlayerSymbol
 from Timer import TimeUnit
-from UserInput import UserInput
+
+class UserInput(Enum):
+    YES = 'y'
+    NO = 'n'
+    QUIT = 'q'
 
 class UserInterface:
     def __init__(self):
