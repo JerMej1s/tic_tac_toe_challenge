@@ -24,6 +24,17 @@ class UserInterface:
         print("\n" +
               f"The game board was last updated at {self.get_timestamp()}.")
 
+    def print_board(self, board) -> None:
+        print("\n")
+        print("\n".join(["|".join(board[i:i+3])
+                        for i in range(0, 9, 3)]))
+        print("\n")
+
+    def print_probability(self, player_symbol, probability, duration) -> None:
+        print(f"Player {player_symbol} has a " +
+                f"{probability}% chance of winning, " +
+                f"which took {duration} milliseconds to calculate.")
+
     def play_with_computer(self) -> None:
         while True:
             user_input = input("\nDo you want to play against the computer? " +
