@@ -39,7 +39,7 @@ while is_playing:
         break
 
     if ui.is_computer_playing:
-        is_computer_first, ai_player.symbol = (
+        is_computer_first, computer_player.symbol = (
             ui.does_computer_go_first())
 
         if is_computer_first == None:
@@ -47,8 +47,9 @@ while is_playing:
             break
         
         if is_computer_first:
-            computer_move = ai_player.get_move(board.get_board())
+            computer_move = ai_player.get_move(board)
             board.update_board(computer_move, computer_player.symbol)
+            is_first_turn = False
 
         player.symbol = (PlayerSymbol.O.value
                          if ai_player.symbol == PlayerSymbol.X.value

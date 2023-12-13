@@ -73,5 +73,3 @@ class PlayerAI(Player):
                 best_move = valid_move
         
         return best_move
-        
-    
