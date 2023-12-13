@@ -1,9 +1,10 @@
-from datetime import datetime
 from enum import Enum
 
-from ErrorMessage import ErrorMessage
 from Player import PlayerSymbol
 from Timer import TimeUnit
+
+class ErrorMessage(Enum):
+    INVALID_INPUT = "Invalid input. Please try again."
 
 class UserInput(Enum):
     YES = 'y'
@@ -13,21 +14,21 @@ class UserInput(Enum):
 class UserInterface:
     def __init__(self):
         self.is_computer_playing = None
-
-    def get_timestamp(self) -> str:
-        return datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
     
-    def print_game_start_message(self) -> None:
-        print(f"\nHello world! The game started at {self.get_timestamp()}." +
+    def print_game_start_message(self, datetime) -> None:
+        print(f"\nHello world! The game started at " +
+              f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}." +
               "\n\nLet's play Tic Tac Toe!")
 
-    def print_game_end_message(self) -> None:
-        print(f"\nThe game ended at {self.get_timestamp()}!\n\n" +
-              "Thanks for playing! Goodbye world!")
+    def print_game_end_message(self, datetime) -> None:
+        print(f"\nThe game ended at "+
+              f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}." +
+              "\n\nThanks for playing! Goodbye world!")
  
-    def print_board_timestamp(self) -> None:
+    def print_board_timestamp(self, datetime) -> None:
         print("\n" +
-              f"The game board was last updated at {self.get_timestamp()}.")
+              f"The game board was last updated at " +
+              f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}.")
 
     def print_board(self, board) -> None:
         print("\n")
@@ -54,7 +55,7 @@ class UserInterface:
             elif user_input == UserInput.QUIT.value:
                 break
             else:
-                print(ErrorMessage.INVALID_INPUT.value)
+                print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
             
     def does_computer_go_first(self) -> (bool, PlayerSymbol):
@@ -71,7 +72,7 @@ class UserInterface:
             elif user_input == UserInput.QUIT.value:
                 return None, None
             else:
-                print(ErrorMessage.INVALID_INPUT.value)
+                print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
 
     def is_playing_again(self) -> bool:
@@ -85,12 +86,10 @@ class UserInterface:
             elif user_input == UserInput.YES.value:
                 return True
             else:
-                print(ErrorMessage.INVALID_INPUT.value)
+                print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
 
-    def print_game_details(self, game, symbol) -> None:
-        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-
+    def print_game_details(self, game, datetime, symbol) -> None:
         x_time_unit = (TimeUnit.MILLISECONDS.value
                        if self.play_with_computer
                        and symbol == PlayerSymbol.X.value
@@ -105,7 +104,7 @@ class UserInterface:
                 f"Player O took {round(game.player_o_turn_duration, 2)} " +
                 f"{o_time_unit} to play. " +
                 f"Game took {game.duration} seconds to play, " +
-                f"ending at {now}.")
+                f"ending at {datetime}.")
 
     def print_historical_game_data(self, game_history) -> None:
         game_count = len(game_history)

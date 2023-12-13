@@ -1,12 +1,13 @@
+from datetime import datetime
+
 from Board import Board
 from DataService import DataService
-from ErrorMessage import ErrorMessage
 from Game import Game
 from Player import PlayerSymbol
 from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
 from Timer import Timer, TimeUnit
-from UserInterface import UserInput, UserInterface
+from UserInterface import ErrorMessage, UserInput, UserInterface
 
 program_timer = Timer(TimeUnit.SECONDS)
 program_timer.start()
@@ -18,7 +19,7 @@ data_warehouse = DataService()
 
 is_playing = True
 
-ui.print_game_start_message()
+ui.print_game_start_message(datetime.now())
 
 while is_playing:
     player = PlayerHuman()
@@ -77,7 +78,7 @@ while is_playing:
             probability_duration = probability_timer.stop()
 
             while True:
-                ui.print_board_timestamp()
+                ui.print_board_timestamp(board.updated_at)
                 ui.print_board(board.board)
                 ui.print_probability(game.current_player,
                                      win_probability, probability_duration)
@@ -91,7 +92,7 @@ while is_playing:
                     is_playing = False
                     break
                 else:
-                    print(ErrorMessage.INVALID_INPUT.value)
+                    print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                     continue
             
         if is_playing:
@@ -110,7 +111,7 @@ while is_playing:
         game.duration = game_timer.stop()
         ui.print_board(board.board)
         game.print_winner()
-        ui.print_game_details(game, computer_player.symbol)
+        ui.print_game_details(game, board.updated_at, computer_player.symbol)
         data_warehouse.save_game_data(game)
 
         is_playing = ui.is_playing_again()
@@ -122,7 +123,7 @@ if len(game_history) > 0:
 
 data_warehouse.delete_historical_game_data()
 
-ui.print_game_end_message()
+ui.print_game_end_message(datetime.now())
 
 program_run_time = program_timer.stop()
 ui.print_end_program_message(program_run_time)
