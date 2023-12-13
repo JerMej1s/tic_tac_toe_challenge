@@ -63,13 +63,13 @@ while is_playing:
 
         if (ui.is_computer_playing # Non-human player's turn
             and game.current_player == computer_player.symbol):
-            turn_timer = Timer(TimeUnit.MILLISECONDS)
+            turn_timer = Timer(TimeUnit.NANOSECONDS)
             turn_timer.start()
 
             player_move = computer_player.get_move(board)
         else: # Human player's turn
             turn_timer = Timer(TimeUnit.SECONDS)
-            probability_timer = Timer(TimeUnit.MILLISECONDS)
+            probability_timer = Timer(TimeUnit.NANOSECONDS)
             turn_timer.start()
             probability_timer.start()
             

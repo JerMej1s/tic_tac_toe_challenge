@@ -40,7 +40,7 @@ class UserInterface:
     def print_probability(self, player_symbol, probability, duration) -> None:
         print(f"Player {player_symbol} has a " +
                 f"{probability}% chance of winning, " +
-                f"which took {duration} milliseconds to calculate.")
+                f"which took {duration} nanoseconds to calculate.")
 
     def print_winner(self, winner) -> None:
         if winner == None:
@@ -100,11 +100,11 @@ class UserInterface:
                 continue
 
     def print_game_details(self, game, datetime, symbol) -> None:
-        x_time_unit = (TimeUnit.MILLISECONDS.value
+        x_time_unit = (TimeUnit.NANOSECONDS.value
                        if self.play_with_computer
                        and symbol == PlayerSymbol.X.value
                        else TimeUnit.SECONDS.value)
-        o_time_unit = (TimeUnit.MILLISECONDS.value
+        o_time_unit = (TimeUnit.NANOSECONDS.value
                        if self.play_with_computer
                        and symbol == PlayerSymbol.O.value
                        else TimeUnit.SECONDS.value)
