@@ -16,7 +16,7 @@ This coding challenge is intended to surface how engineering candidates approach
 
 Special consideration will be granted to accuracy in meeting the requirements, performance of the code, code organization, robustness of the user experience, and duration for completing the challenge.
 
-### Acceptance Criteria ✅
+### Requirements ✅
 
 In Python, make use of classes to build out tic-tac-toe with supplementary information. It will be standard rules. X always goes first. This will be done entirely in the console. The program starts by printing out the current time to the millisecond. Use ASCII art to build a board, with each box containing an X, O, or 1-9. Every time the board is displayed, it will be preceded by a timestamp (for validation purposes).
 
@@ -33,7 +33,7 @@ Upon quitting, it displays:
 
 ## Game Board 🔢
 
-The game board is an array of nine elements, each representing a cell on the board. When the board is initialized, each element is set to a string representation of its corresponding cell number, 1-9. During play, the elements are replaced with player's symbols, `X` or `O`.
+The game board is a `list` of nine elements, each representing a cell on the board. When the board is initialized, each element is set to a string representation of its corresponding cell number, 1-9. During play, the elements are replaced with a player's symbols, `X` or `O`.
 
 ## Win Probability 🎲
 
