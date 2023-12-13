@@ -15,7 +15,7 @@ program_timer.start()
 ui = UserInterface()
 player = PlayerHuman()
 game_timer = Timer(TimeUnit.SECONDS)
-data_warehouse = DataService()
+data_service = DataService()
 
 is_playing = True
 
@@ -112,16 +112,16 @@ while is_playing:
         ui.print_board(board.board)
         ui.print_winner(game.winner)
         ui.print_game_details(game, board.updated_at, computer_player.symbol)
-        data_warehouse.save_game_data(game)
+        data_service.save_game_data(game)
 
         is_playing = ui.is_playing_again()
 
-game_history = data_warehouse.get_historical_game_data()
+game_history = data_service.get_historical_game_data()
 
 if len(game_history) > 0:
     ui.print_historical_game_data(game_history)
 
-data_warehouse.delete_historical_game_data()
+data_service.delete_historical_game_data()
 
 ui.print_game_end_message(datetime.now())
 
