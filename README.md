@@ -44,6 +44,7 @@ During the game, on each human player's turn, the program estimates the probabil
     * A `zip()` function is used to iterate over each (non-empty) cell in the current board and the corresponding cell in each "possible" board at the same time. If the cells do not match, the board is eliminated as a possible end-state.
   * Of the remaining boards, the program will determine and count those which result in a win for the current player.
     * The program checks if any of the positions in a winning combination contain the current player's symbol. If they match, it means the player has a winning combination on the board.
+    * The `list` of remaing boards is stored in memory to use on the next turn.
   * With the total number of possible remaining winning permutations and the total number of possible remaining end-state permutations, the estimated win probability is calculated and returned.
 
 ## Computer Player Strategy 💻
