@@ -9,30 +9,29 @@ from PlayerHuman import PlayerHuman
 from Timer import Timer, TimeUnit
 from UserInterface import ErrorMessage, UserInput, UserInterface
 
+ui = UserInterface()
+player = PlayerHuman()
+computer_player = PlayerComputer()
+game = Game()
+board = Board()
+data_service = DataService()
+
 program_timer = Timer(TimeUnit.SECONDS)
 program_timer.start()
 
-ui = UserInterface()
-player = PlayerHuman()
-game_timer = Timer(TimeUnit.SECONDS)
-data_service = DataService()
-
-is_playing = True
-
 ui.print_game_start_message(datetime.now())
 
+game_timer = Timer(TimeUnit.SECONDS)
+is_playing = True
+
 while is_playing:
-    player = PlayerHuman()
-    computer_player = PlayerComputer()
-    game = Game()
-    board = Board()
+    board.reset_board()
     is_first_turn = True
     is_game_over = False
     
     ui.play_with_computer()    
 
     if ui.is_computer_playing:
-        computer_player = PlayerComputer()
         is_computer_first, computer_player.symbol = (
             ui.does_computer_go_first())
         

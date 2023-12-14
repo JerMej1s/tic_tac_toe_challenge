@@ -26,6 +26,11 @@ class Board:
     def clear_cell(self, cell) -> None:
         cell_index = int(cell) - 1
         self.board[cell_index] = str(cell_index + 1)
+        self.updated_at = datetime.now()
+
+    def reset_board(self) -> None:
+        self.board = [str(i) for i in range(1, 10)]
+        self.updated_at = datetime.now()
 
     def get_valid_moves(self) -> [str]:
         return [i for i in self.board if i not in ['X', 'O']]
