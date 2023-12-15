@@ -17,10 +17,10 @@ human_player = PlayerHuman()
 computer_player = PlayerAI()
 game = Game()
 board = Board()
-data_service = DataService()
 program_timer = Timer()
 game_timer = Timer()
 turn_timer = Timer()
+data_service = DataService()
 
 program_timer.start()
 
@@ -97,7 +97,7 @@ while is_playing: # Start a new game
 
         is_playing = user.is_playing_again()
 
-# User does not want to play again
+# User is not playing again
 game_history = data_service.get_historical_game_data()
 
 if len(game_history) > 0:

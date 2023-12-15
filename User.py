@@ -56,4 +56,3 @@ class User:
             else:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
-            
