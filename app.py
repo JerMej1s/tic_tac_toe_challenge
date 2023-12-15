@@ -8,8 +8,10 @@ from PlayerAI import PlayerAI
 # from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
 from Timer import Timer, TimeUnit
-from UserInterface import ErrorMessage, UserInput, UserInterface
+from User import User
+from UserInterface import UserInterface
 
+user = User()
 ui = UserInterface()
 human_player = PlayerHuman()
 computer_player = PlayerAI()
@@ -19,7 +21,6 @@ data_service = DataService()
 program_timer = Timer()
 game_timer = Timer()
 turn_timer = Timer()
-probability_timer = Timer(TimeUnit.NANOSECONDS)
 
 program_timer.start()
 
@@ -32,10 +33,10 @@ while is_playing: # Start a new game
     is_first_turn = True
     is_game_over = False
     
-    ui.play_with_computer()    
+    is_computer_playing = user.is_computer_playing()
 
-    if ui.is_computer_playing: # Determine players' symbols
-        is_computer_first = (ui.does_computer_go_first())
+    if is_computer_playing: # Determine players' symbols
+        is_computer_first = (user.does_computer_go_first())
         
         if is_computer_first:
             human_player.symbol = PlayerSymbol.O.value
@@ -46,7 +47,7 @@ while is_playing: # Start a new game
         else:
             human_player.symbol = PlayerSymbol.X.value
             computer_player.symbol = PlayerSymbol.O.value
-    elif ui.is_computer_playing is None: # User entered 'q' to quit
+    elif is_computer_playing is None: # User entered 'q' to quit
         is_playing = False
         break
 
@@ -58,40 +59,24 @@ while is_playing: # Start a new game
 
         player_move = None
 
-        if (ui.is_computer_playing and game.current_player == (
+        if (is_computer_playing and game.current_player == (
             computer_player.symbol)): # Non-human player's turn
             turn_timer.unit = TimeUnit.NANOSECONDS
             turn_timer.start()
 
             player_move = computer_player.get_move(board)
         else: # Human player's turn
-            probability_timer.start()
-            win_probability = (round(
-                board.get_win_probability(game.current_player) * 100, 2))
-            probability_duration = probability_timer.stop()
-
-            while True:
-                ui.print_board_timestamp(board.updated_at)
-                ui.print_board(board.board)
-                ui.print_probability(game.current_player,
-                                     win_probability, probability_duration)
-                
-                turn_timer.unit = TimeUnit.SECONDS
-                turn_timer.start()
-
-                user_input = human_player.get_move(board)
-
-                if user_input in board.get_valid_moves():
-                    player_move = user_input
-                    break
-                elif user_input == UserInput.QUIT.value:
-                    is_playing = False
-                    break
-                else:
-                    print(f"\n{ErrorMessage.INVALID_INPUT.value}")
-                    continue
+            human_player.symbol = game.current_player
+            turn_timer.unit = TimeUnit.SECONDS
+            turn_timer.start()
             
-        if is_playing:
+            player_move = human_player.get_move(board)
+
+            if player_move is None:
+                is_playing = False
+                break
+            
+        if is_playing: # Make player's move and end turn
             board.update_board(player_move, game.current_player)
 
             is_game_over, game.winner = board.is_game_over()
@@ -103,15 +88,16 @@ while is_playing: # Start a new game
         else:
             break
 
-    if is_playing:
+    if is_playing: # Game is over
         game.duration = game_timer.stop()
         ui.print_board(board.board)
         ui.print_winner(game.winner)
-        ui.print_game_details(game, board.updated_at, computer_player.symbol)
+        ui.print_game_details(game, board.updated_at, is_computer_playing, computer_player.symbol)
         data_service.save_game_data(game)
 
-        is_playing = ui.is_playing_again()
+        is_playing = user.is_playing_again()
 
+# User does not want to play again
 game_history = data_service.get_historical_game_data()
 
 if len(game_history) > 0:
