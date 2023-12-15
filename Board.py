@@ -12,7 +12,7 @@ WINNING_COMBINATIONS = [
 class Board:
     def __init__(self):
         self.board = [str(i) for i in range(1, 10)]
-        self.possible_boards = []
+        self.possible_boards = set()
         self.updated_at = datetime.now()
 
     def get_board(self) -> [str]:
@@ -26,6 +26,11 @@ class Board:
     def clear_cell(self, cell) -> None:
         cell_index = int(cell) - 1
         self.board[cell_index] = str(cell_index + 1)
+        self.updated_at = datetime.now()
+
+    def reset_board(self) -> None:
+        self.board = [str(i) for i in range(1, 10)]
+        self.updated_at = datetime.now()
 
     def get_valid_moves(self) -> [str]:
         return [i for i in self.board if i not in ['X', 'O']]
@@ -33,16 +38,16 @@ class Board:
     def get_win_probability(self, player_symbol) -> float:
         num_wins = 0
 
-        self.possible_boards = ([board for board in ALL_BOARDS 
+        self.possible_boards = (set(board for board in ALL_BOARDS 
                                     if all(b == s for b, s
                                         in zip(board, self.board)
                                         if not s
-                                        in map(str, range(1, 10)))])
+                                        in map(str, range(1, 10)))))
 
-        possible_wins = ([board for board in self.possible_boards
+        possible_wins = (set(board for board in self.possible_boards
                             if any(
                                 board[wc[0]] == board[wc[1]] == board[wc[2]]
-                                for wc in WINNING_COMBINATIONS)])
+                                for wc in WINNING_COMBINATIONS)))
 
         for possible_win in possible_wins:
             if (any(possible_win[i] == player_symbol for wc

@@ -40,7 +40,7 @@ class UserInterface:
     def print_probability(self, player_symbol, probability, duration) -> None:
         print(f"Player {player_symbol} has a " +
                 f"{probability}% chance of winning, " +
-                f"which took {duration} milliseconds to calculate.")
+                f"which took {duration} nanoseconds to calculate.")
 
     def print_winner(self, winner) -> None:
         if winner == None:
@@ -67,20 +67,17 @@ class UserInterface:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
             
-    def does_computer_go_first(self) -> (
-            Optional[bool], Optional[PlayerSymbol]):
+    def does_computer_go_first(self) -> (Optional[bool]):
         while True:
             user_input = input("\nDo you want to go first? " +
                                 "[y/n or q to quit]: ").lower()
             
             if user_input == UserInput.YES.value:
-                symbol = PlayerSymbol.O.value
-                return False, symbol
+                return False 
             elif user_input == UserInput.NO.value:
-                symbol = PlayerSymbol.X.value
-                return True, symbol
+                return True
             elif user_input == UserInput.QUIT.value:
-                return None, None
+                return None
             else:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
@@ -100,11 +97,11 @@ class UserInterface:
                 continue
 
     def print_game_details(self, game, datetime, symbol) -> None:
-        x_time_unit = (TimeUnit.MILLISECONDS.value
+        x_time_unit = (TimeUnit.NANOSECONDS.value
                        if self.play_with_computer
                        and symbol == PlayerSymbol.X.value
                        else TimeUnit.SECONDS.value)
-        o_time_unit = (TimeUnit.MILLISECONDS.value
+        o_time_unit = (TimeUnit.NANOSECONDS.value
                        if self.play_with_computer
                        and symbol == PlayerSymbol.O.value
                        else TimeUnit.SECONDS.value)

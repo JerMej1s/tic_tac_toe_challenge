@@ -8,7 +8,7 @@ class TimeUnit(Enum):
     NANOSECONDS = 'ns'
 
 class Timer:
-    def __init__(self, unit: TimeUnit):
+    def __init__(self, unit: TimeUnit = TimeUnit.SECONDS):
         self.unit = unit
         self.start_time = None
         self.end_time = None

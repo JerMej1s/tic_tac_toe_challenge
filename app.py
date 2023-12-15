@@ -10,54 +10,45 @@ from PlayerHuman import PlayerHuman
 from Timer import Timer, TimeUnit
 from UserInterface import ErrorMessage, UserInput, UserInterface
 
-program_timer = Timer(TimeUnit.SECONDS)
-program_timer.start()
-
 ui = UserInterface()
-player = PlayerHuman()
-game_timer = Timer(TimeUnit.SECONDS)
-data_warehouse = DataService()
+human_player = PlayerHuman()
+computer_player = PlayerAI()
+game = Game()
+board = Board()
+data_service = DataService()
+program_timer = Timer()
+game_timer = Timer()
+turn_timer = Timer()
+probability_timer = Timer(TimeUnit.NANOSECONDS)
 
-is_playing = True
+program_timer.start()
 
 ui.print_game_start_message(datetime.now())
 
-while is_playing:
-    player = PlayerHuman()
-    computer_player = PlayerAI()
-    game = Game()
-    board = Board()
+is_playing = True
+
+while is_playing: # Start a new game
+    board.reset_board()
     is_first_turn = True
     is_game_over = False
     
     ui.play_with_computer()    
 
-    if ui.is_computer_playing == True:
-        ai_player = PlayerAI()
-    elif ui.is_computer_playing is None:
-        playing = False # User entered 'q' to quit
-        break
-
-    if ui.is_computer_playing:
-        is_computer_first, computer_player.symbol = (
-            ui.does_computer_go_first())
+    if ui.is_computer_playing: # Determine players' symbols
+        is_computer_first = (ui.does_computer_go_first())
         
         if is_computer_first:
-            computer_move = ai_player.get_move(board)
-            board.update_board(computer_move, computer_player.symbol)
-            is_first_turn = False
+            human_player.symbol = PlayerSymbol.O.value
+            computer_player.symbol = PlayerSymbol.X.value
         elif is_computer_first == None: # User entered 'q' to quit
             is_playing = False
             break
-
-        player.symbol = (PlayerSymbol.O.value
-                         if ai_player.symbol == PlayerSymbol.X.value
-                         else PlayerSymbol.X.value)
+        else:
+            human_player.symbol = PlayerSymbol.X.value
+            computer_player.symbol = PlayerSymbol.O.value
     elif ui.is_computer_playing is None: # User entered 'q' to quit
         is_playing = False
         break
-    else:
-        player.symbol = PlayerSymbol.X.value
 
     game_timer.start()
 
@@ -67,18 +58,14 @@ while is_playing:
 
         player_move = None
 
-        if (ui.is_computer_playing # Non-human player's turn
-            and game.current_player == computer_player.symbol):
-            turn_timer = Timer(TimeUnit.MILLISECONDS)
+        if (ui.is_computer_playing and game.current_player == (
+            computer_player.symbol)): # Non-human player's turn
+            turn_timer.unit = TimeUnit.NANOSECONDS
             turn_timer.start()
 
             player_move = computer_player.get_move(board)
         else: # Human player's turn
-            turn_timer = Timer(TimeUnit.SECONDS)
-            probability_timer = Timer(TimeUnit.MILLISECONDS)
-            turn_timer.start()
             probability_timer.start()
-            
             win_probability = (round(
                 board.get_win_probability(game.current_player) * 100, 2))
             probability_duration = probability_timer.stop()
@@ -89,7 +76,10 @@ while is_playing:
                 ui.print_probability(game.current_player,
                                      win_probability, probability_duration)
                 
-                user_input = player.get_move(board)
+                turn_timer.unit = TimeUnit.SECONDS
+                turn_timer.start()
+
+                user_input = human_player.get_move(board)
 
                 if user_input in board.get_valid_moves():
                     player_move = user_input
@@ -106,10 +96,10 @@ while is_playing:
 
             is_game_over, game.winner = board.is_game_over()
             
-            is_first_turn = False
-
             turn_duration = turn_timer.stop()
             game.tabulate_turn_duration(turn_duration)
+
+            is_first_turn = False
         else:
             break
 
@@ -118,16 +108,16 @@ while is_playing:
         ui.print_board(board.board)
         ui.print_winner(game.winner)
         ui.print_game_details(game, board.updated_at, computer_player.symbol)
-        data_warehouse.save_game_data(game)
+        data_service.save_game_data(game)
 
         is_playing = ui.is_playing_again()
 
-game_history = data_warehouse.get_historical_game_data()
+game_history = data_service.get_historical_game_data()
 
 if len(game_history) > 0:
     ui.print_historical_game_data(game_history)
 
-data_warehouse.delete_historical_game_data()
+data_service.delete_historical_game_data()
 
 ui.print_game_end_message(datetime.now())
 
