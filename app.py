@@ -10,7 +10,7 @@ from Timer import Timer, TimeUnit
 from UserInterface import ErrorMessage, UserInput, UserInterface
 
 ui = UserInterface()
-player = PlayerHuman()
+human_player = PlayerHuman()
 computer_player = PlayerComputer()
 game = Game()
 board = Board()
@@ -26,33 +26,28 @@ ui.print_game_start_message(datetime.now())
 
 is_playing = True
 
-while is_playing:
+while is_playing: # Start a new game
     board.reset_board()
     is_first_turn = True
     is_game_over = False
     
     ui.play_with_computer()    
 
-    if ui.is_computer_playing:
-        is_computer_first, computer_player.symbol = (
-            ui.does_computer_go_first())
+    if ui.is_computer_playing: # Determine players' symbols
+        is_computer_first = (ui.does_computer_go_first())
         
         if is_computer_first:
-            computer_move = computer_player.get_move(board.get_board())
-            board.update_board(computer_move, computer_player.symbol)
-            is_first_turn = False
+            human_player.symbol = PlayerSymbol.O.value
+            computer_player.symbol = PlayerSymbol.X.value
         elif is_computer_first == None: # User entered 'q' to quit
             is_playing = False
             break
-
-        player.symbol = (PlayerSymbol.O.value
-                         if computer_player.symbol == PlayerSymbol.X.value
-                         else PlayerSymbol.X.value)
+        else:
+            human_player.symbol = PlayerSymbol.X.value
+            computer_player.symbol = PlayerSymbol.O.value
     elif ui.is_computer_playing is None: # User entered 'q' to quit
         is_playing = False
         break
-    else:
-        player.symbol = PlayerSymbol.X.value
 
     game_timer.start()
 
@@ -62,8 +57,8 @@ while is_playing:
 
         player_move = None
 
-        if (ui.is_computer_playing # Non-human player's turn
-            and game.current_player == computer_player.symbol):
+        if (ui.is_computer_playing and game.current_player == (
+            computer_player.symbol)): # Non-human player's turn
             turn_timer.unit = TimeUnit.NANOSECONDS
             turn_timer.start()
 
@@ -83,7 +78,7 @@ while is_playing:
                 turn_timer.unit = TimeUnit.SECONDS
                 turn_timer.start()
 
-                user_input = player.get_move(board)
+                user_input = human_player.get_move(board)
 
                 if user_input in board.get_valid_moves():
                     player_move = user_input

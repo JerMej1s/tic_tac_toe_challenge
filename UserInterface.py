@@ -67,20 +67,17 @@ class UserInterface:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
             
-    def does_computer_go_first(self) -> (
-            Optional[bool], Optional[PlayerSymbol]):
+    def does_computer_go_first(self) -> (Optional[bool]):
         while True:
             user_input = input("\nDo you want to go first? " +
                                 "[y/n or q to quit]: ").lower()
             
             if user_input == UserInput.YES.value:
-                symbol = PlayerSymbol.O.value
-                return False, symbol
+                return False 
             elif user_input == UserInput.NO.value:
-                symbol = PlayerSymbol.X.value
-                return True, symbol
+                return True
             elif user_input == UserInput.QUIT.value:
-                return None, None
+                return None
             else:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
