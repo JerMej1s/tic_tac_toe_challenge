@@ -15,13 +15,15 @@ computer_player = PlayerComputer()
 game = Game()
 board = Board()
 data_service = DataService()
+program_timer = Timer()
+game_timer = Timer()
+turn_timer = Timer()
+probability_timer = Timer(TimeUnit.NANOSECONDS)
 
-program_timer = Timer(TimeUnit.SECONDS)
 program_timer.start()
 
 ui.print_game_start_message(datetime.now())
 
-game_timer = Timer(TimeUnit.SECONDS)
 is_playing = True
 
 while is_playing:
@@ -62,16 +64,12 @@ while is_playing:
 
         if (ui.is_computer_playing # Non-human player's turn
             and game.current_player == computer_player.symbol):
-            turn_timer = Timer(TimeUnit.NANOSECONDS)
+            turn_timer.unit = TimeUnit.NANOSECONDS
             turn_timer.start()
 
             player_move = computer_player.get_move(board)
         else: # Human player's turn
-            turn_timer = Timer(TimeUnit.SECONDS)
-            probability_timer = Timer(TimeUnit.NANOSECONDS)
-            turn_timer.start()
             probability_timer.start()
-            
             win_probability = (round(
                 board.get_win_probability(game.current_player) * 100, 2))
             probability_duration = probability_timer.stop()
@@ -82,6 +80,9 @@ while is_playing:
                 ui.print_probability(game.current_player,
                                      win_probability, probability_duration)
                 
+                turn_timer.unit = TimeUnit.SECONDS
+                turn_timer.start()
+
                 user_input = player.get_move(board)
 
                 if user_input in board.get_valid_moves():
@@ -99,10 +100,10 @@ while is_playing:
 
             is_game_over, game.winner = board.is_game_over()
             
-            is_first_turn = False
-
             turn_duration = turn_timer.stop()
             game.tabulate_turn_duration(turn_duration)
+
+            is_first_turn = False
         else:
             break
 
