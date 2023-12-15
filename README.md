@@ -33,7 +33,7 @@ Upon quitting, it displays:
 
 ## Game Board 🔢
 
-The game board is a `list` of nine elements, each representing a cell on the board. When the board is initialized, each element is set to a string representation of its corresponding cell number, 1-9. During play, the elements are replaced with a player's symbols, `X` or `O`.
+The game board is a `list` of nine elements, each representing a cell on the board. When the board is initialized, each element is set to a string representation of its corresponding cell number, 1-9. During play, the elements may be replaced with a player's symbol, `X` or `O`.
 
 ## Win Probability 🎲
 
@@ -51,7 +51,7 @@ During the game, on each human player's turn, the program estimates the probabil
 
 On the computer player's turn, the program will choose a move based on the following prioritized criteria:
   * A move that results in an immeditate win for the computer player.
-  * A move that blocks an opponent from winning on their next turn.
+  * A move that blocks an opponent's win on their next turn.
   * A random available center or corner cell on the board.
   * A random available cell.
 
