@@ -2,7 +2,8 @@ from typing import Optional
 
 from Player import Player
 from Timer import Timer, TimeUnit
-from UserInterface import ErrorMessage, UserInput, UserInterface
+from User import ErrorMessage, UserInput
+from UserInterface import UserInterface
 
 ui = UserInterface()
 probability_timer = Timer(TimeUnit.NANOSECONDS)

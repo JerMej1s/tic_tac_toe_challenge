@@ -7,8 +7,10 @@ from Player import PlayerSymbol
 from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
 from Timer import Timer, TimeUnit
+from User import User
 from UserInterface import UserInterface
 
+user = User()
 ui = UserInterface()
 human_player = PlayerHuman()
 computer_player = PlayerComputer()
@@ -30,10 +32,10 @@ while is_playing: # Start a new game
     is_first_turn = True
     is_game_over = False
     
-    ui.play_with_computer()    
+    is_computer_playing = user.is_computer_playing()
 
-    if ui.is_computer_playing: # Determine players' symbols
-        is_computer_first = (ui.does_computer_go_first())
+    if is_computer_playing: # Determine players' symbols
+        is_computer_first = (user.does_computer_go_first())
         
         if is_computer_first:
             human_player.symbol = PlayerSymbol.O.value
@@ -44,7 +46,7 @@ while is_playing: # Start a new game
         else:
             human_player.symbol = PlayerSymbol.X.value
             computer_player.symbol = PlayerSymbol.O.value
-    elif ui.is_computer_playing is None: # User entered 'q' to quit
+    elif is_computer_playing is None: # User entered 'q' to quit
         is_playing = False
         break
 
@@ -56,7 +58,7 @@ while is_playing: # Start a new game
 
         player_move = None
 
-        if (ui.is_computer_playing and game.current_player == (
+        if (is_computer_playing and game.current_player == (
             computer_player.symbol)): # Non-human player's turn
             turn_timer.unit = TimeUnit.NANOSECONDS
             turn_timer.start()
@@ -89,10 +91,10 @@ while is_playing: # Start a new game
         game.duration = game_timer.stop()
         ui.print_board(board.board)
         ui.print_winner(game.winner)
-        ui.print_game_details(game, board.updated_at, computer_player.symbol)
+        ui.print_game_details(game, board.updated_at, is_computer_playing, computer_player.symbol)
         data_service.save_game_data(game)
 
-        is_playing = ui.is_playing_again()
+        is_playing = user.is_playing_again()
 
 game_history = data_service.get_historical_game_data()
 
