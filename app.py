@@ -91,7 +91,8 @@ while is_playing: # Start a new game
         game.duration = game_timer.stop()
         ui.print_board(board.board)
         ui.print_winner(game.winner)
-        ui.print_game_details(game, board.updated_at, is_computer_playing, computer_player.symbol)
+        ui.print_game_details(game, board.updated_at, is_computer_playing,
+                              computer_player.symbol)
         data_service.save_game_data(game)
 
         is_playing = user.is_playing_again()
