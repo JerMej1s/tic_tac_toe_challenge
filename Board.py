@@ -18,10 +18,9 @@ class Board:
     def get_board(self) -> [str]:
         return self.board
     
-    def update_board(self, cell, player_symbol) -> [str]:
+    def update_board(self, cell, player_symbol) -> None:
         self.board[int(cell) - 1] = player_symbol
         self.updated_at = datetime.now()
-        return self.board
 
     def clear_cell(self, cell) -> None:
         cell_index = int(cell) - 1
