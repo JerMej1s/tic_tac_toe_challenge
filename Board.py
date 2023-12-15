@@ -14,9 +14,6 @@ class Board:
         self.board = [str(i) for i in range(1, 10)]
         self.possible_boards = set()
         self.updated_at = datetime.now()
-
-    def get_board(self) -> [str]:
-        return self.board
     
     def update_board(self, cell, player_symbol) -> None:
         self.board[int(cell) - 1] = player_symbol
