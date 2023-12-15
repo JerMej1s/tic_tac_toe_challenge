@@ -7,7 +7,7 @@ from Player import PlayerSymbol
 from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
 from Timer import Timer, TimeUnit
-from UserInterface import ErrorMessage, UserInput, UserInterface
+from UserInterface import UserInterface
 
 ui = UserInterface()
 human_player = PlayerHuman()
@@ -18,7 +18,6 @@ data_service = DataService()
 program_timer = Timer()
 game_timer = Timer()
 turn_timer = Timer()
-probability_timer = Timer(TimeUnit.NANOSECONDS)
 
 program_timer.start()
 
@@ -64,31 +63,15 @@ while is_playing: # Start a new game
 
             player_move = computer_player.get_move(board)
         else: # Human player's turn
-            probability_timer.start()
-            win_probability = (round(
-                board.get_win_probability(game.current_player) * 100, 2))
-            probability_duration = probability_timer.stop()
+            human_player.symbol = game.current_player
+            turn_timer.unit = TimeUnit.SECONDS
+            turn_timer.start()
+            
+            player_move = human_player.get_move(board)
 
-            while True:
-                ui.print_board_timestamp(board.updated_at)
-                ui.print_board(board.board)
-                ui.print_probability(game.current_player,
-                                     win_probability, probability_duration)
-                
-                turn_timer.unit = TimeUnit.SECONDS
-                turn_timer.start()
-
-                user_input = human_player.get_move(board)
-
-                if user_input in board.get_valid_moves():
-                    player_move = user_input
-                    break
-                elif user_input == UserInput.QUIT.value:
-                    is_playing = False
-                    break
-                else:
-                    print(f"\n{ErrorMessage.INVALID_INPUT.value}")
-                    continue
+            if player_move is None:
+                is_playing = False
+                break
             
         if is_playing:
             board.update_board(player_move, game.current_player)
