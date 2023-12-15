@@ -34,7 +34,8 @@ class UserInterface:
         else:
             print(f"Player {winner} wins!\n")
 
-    def print_game_details(self, game, datetime, is_computer_playing, symbol) -> None:
+    def print_game_details(self, game, datetime,
+                           is_computer_playing, symbol) -> None:
         x_time_unit = (TimeUnit.NANOSECONDS.value
                        if is_computer_playing
                        and symbol == PlayerSymbol.X.value

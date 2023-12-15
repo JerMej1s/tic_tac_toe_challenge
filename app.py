@@ -75,7 +75,7 @@ while is_playing: # Start a new game
                 is_playing = False
                 break
             
-        if is_playing:
+        if is_playing: # Make player's move and end turn
             board.update_board(player_move, game.current_player)
 
             is_game_over, game.winner = board.is_game_over()
@@ -87,7 +87,7 @@ while is_playing: # Start a new game
         else:
             break
 
-    if is_playing:
+    if is_playing: # Game is over
         game.duration = game_timer.stop()
         ui.print_board(board.board)
         ui.print_winner(game.winner)
@@ -96,6 +96,7 @@ while is_playing: # Start a new game
 
         is_playing = user.is_playing_again()
 
+# User does not want to play again
 game_history = data_service.get_historical_game_data()
 
 if len(game_history) > 0:

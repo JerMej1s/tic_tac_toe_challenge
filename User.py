@@ -15,8 +15,8 @@ class User:
 
     def is_computer_playing(self) -> Optional[bool]:
         while True:
-            user_input = input("\nDo you want to play against the computer? " +
-                            "[y/n or q to quit]: ").lower()
+            user_input = input("\nDo you want to play against the computer?" +
+                               " [y/n or q to quit]: ").lower()
             
             if user_input == UserInput.YES.value:
                 return True
@@ -56,3 +56,4 @@ class User:
             else:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
+            
