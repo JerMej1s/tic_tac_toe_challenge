@@ -1,11 +1,13 @@
 import os
 import pickle
 
+from Game import Game
+
 class DataService:
     def __init__(self):
         pass
 
-    def save_game_data(self, game) -> None:
+    def save_game_data(self, game: Game) -> None:
         game.possible_boards = None
 
         try:

@@ -1,15 +1,16 @@
 import random
 
+from Board import Board
 from Player import Player, PlayerSymbol
 
 CENTER_AND_CORNERS = ['1', '3', '5', '7', '9']
 
 class PlayerComputer(Player):
-    def get_move(self, board) -> str:
+    def get_move(self, board: Board) -> str:
         new_board = board
         valid_moves = new_board.get_valid_moves()
 
-        def check_for_win(symbol) -> str:
+        def check_for_win(symbol: PlayerSymbol) -> str:
             best_move = None
 
             for valid_move in valid_moves:

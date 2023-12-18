@@ -2,6 +2,8 @@ import itertools
 
 from datetime import datetime
 
+from Game import PlayerSymbol
+
 # TODO: Remove duplicate boards and invalid boards.
 ALL_BOARDS = set(itertools.permutations('XXXXXOOOO', 9))
 
@@ -15,11 +17,11 @@ class Board:
         self.possible_boards = set()
         self.updated_at = datetime.now()
     
-    def update_board(self, cell, player_symbol) -> None:
+    def update_board(self, cell: str, player_symbol: PlayerSymbol) -> None:
         self.board[int(cell) - 1] = player_symbol
         self.updated_at = datetime.now()
 
-    def clear_cell(self, cell) -> None:
+    def clear_cell(self, cell: str) -> None:
         cell_index = int(cell) - 1
         self.board[cell_index] = str(cell_index + 1)
         self.updated_at = datetime.now()
@@ -31,7 +33,7 @@ class Board:
     def get_valid_moves(self) -> [str]:
         return [i for i in self.board if i not in ['X', 'O']]
 
-    def get_win_probability(self, player_symbol) -> float:
+    def get_win_probability(self, player_symbol: PlayerSymbol) -> float:
         num_wins = 0
 
         self.possible_boards = (set(board for board in ALL_BOARDS 

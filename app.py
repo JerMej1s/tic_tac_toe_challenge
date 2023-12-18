@@ -2,8 +2,7 @@ from datetime import datetime
 
 from Board import Board
 from DataService import DataService
-from Game import Game
-from Player import PlayerSymbol
+from Game import Game, PlayerSymbol
 from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
 from Timer import Timer, TimeUnit
@@ -75,15 +74,15 @@ while is_playing: # Start a new game
                 is_playing = False
                 break
             
-        if is_playing: # Make player's move and end turn
+        if is_playing: # Make player's move, end turn, and check if game over
             board.update_board(player_move, game.current_player)
-
-            is_game_over, game.winner = board.is_game_over()
             
             turn_duration = turn_timer.stop()
             game.tabulate_turn_duration(turn_duration)
 
             is_first_turn = False
+
+            is_game_over, game.winner = board.is_game_over()
         else:
             break
 
@@ -93,6 +92,7 @@ while is_playing: # Start a new game
         ui.print_winner(game.winner)
         ui.print_game_details(game, board.updated_at, is_computer_playing,
                               computer_player.symbol)
+        
         data_service.save_game_data(game)
 
         is_playing = user.is_playing_again()
