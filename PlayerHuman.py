@@ -1,5 +1,6 @@
 from typing import Optional
 
+from Board import Board
 from Player import Player
 from Timer import Timer, TimeUnit
 from User import ErrorMessage, UserInput
@@ -9,7 +10,7 @@ ui = UserInterface()
 probability_timer = Timer(TimeUnit.NANOSECONDS)
 
 class PlayerHuman(Player):
-    def get_move(self, board) -> Optional[str]:
+    def get_move(self, board: Board) -> Optional[str]:
         valid_moves = board.get_valid_moves()
 
         probability_timer.start()
