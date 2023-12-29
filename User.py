@@ -28,7 +28,7 @@ class User:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
     
-    def does_computer_go_first(self) -> (Optional[bool]):
+    def does_computer_go_first(self) -> Optional[bool]:
         while True:
             user_input = input("\nDo you want to go first? " +
                                 "[y/n or q to quit]: ").lower()

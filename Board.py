@@ -22,8 +22,7 @@ class Board:
         self.updated_at = datetime.now()
 
     def clear_cell(self, cell: str) -> None:
-        cell_index = int(cell) - 1
-        self.board[cell_index] = str(cell_index + 1)
+        self.board[int(cell) - 1] = str(int(cell))
         self.updated_at = datetime.now()
 
     def reset_board(self) -> None:

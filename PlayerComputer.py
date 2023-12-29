@@ -20,7 +20,6 @@ class PlayerComputer(Player):
                 is_game_over, _ = new_board.is_game_over()
 
                 if is_game_over:
-                    new_board.clear_cell(valid_move)
                     best_move = valid_move
                     break
                 else:

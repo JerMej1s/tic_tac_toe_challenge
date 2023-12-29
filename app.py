@@ -34,7 +34,7 @@ while is_playing: # Start a new game
     is_computer_playing = user.is_computer_playing()
 
     if is_computer_playing: # Determine players' symbols
-        is_computer_first = (user.does_computer_go_first())
+        is_computer_first = user.does_computer_go_first()
         
         if is_computer_first:
             human_player.symbol = PlayerSymbol.O.value
