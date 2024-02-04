@@ -1,7 +1,7 @@
 from enum import Enum
 
 class PlayerSymbol(Enum):
-    X = 'X'
+    X = 'X' # Always goes first
     O = 'O'
 
 class Game:

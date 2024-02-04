@@ -48,11 +48,11 @@ class User:
             user_input = (input("\nDo you want to play again? [y/n/q]: ")
                             .lower())
             
-            if (user_input == UserInput.NO.value
+            if user_input == UserInput.YES.value:
+                return True
+            elif (user_input == UserInput.NO.value
                 or user_input == UserInput.QUIT.value):
                 return False
-            elif user_input == UserInput.YES.value:
-                return True
             else:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue

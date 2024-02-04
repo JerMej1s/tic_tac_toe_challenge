@@ -9,7 +9,8 @@ ALL_BOARDS = set(itertools.permutations('XXXXXOOOO', 9))
 
 WINNING_COMBINATIONS = [
     (0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6),
-    (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)]
+    (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)
+]
 
 class Board:
     def __init__(self):
@@ -30,7 +31,8 @@ class Board:
         self.updated_at = datetime.now()
 
     def get_valid_moves(self) -> [str]:
-        return [i for i in self.board if i not in ['X', 'O']]
+        return [i for i in self.board
+                if i not in [PlayerSymbol.X.value, PlayerSymbol.O.value]]
 
     def get_win_probability(self, player_symbol: PlayerSymbol) -> float:
         num_wins = 0

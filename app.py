@@ -77,7 +77,7 @@ while is_playing: # Start a new game
         if is_playing: # Make player's move, end turn, and check if game over
             board.update_board(player_move, game.current_player)
             
-            turn_duration = turn_timer.stop()
+            turn_duration = round(turn_timer.stop(), 2)
             game.tabulate_turn_duration(turn_duration)
 
             is_first_turn = False
@@ -87,11 +87,15 @@ while is_playing: # Start a new game
             break
 
     if is_playing: # Game is over
-        game.duration = game_timer.stop()
+        game.duration = round(game_timer.stop(), 2)
         ui.print_board(board.board)
         ui.print_winner(game.winner)
-        ui.print_game_details(game, board.updated_at, is_computer_playing,
-                              computer_player.symbol)
+        ui.print_game_details(
+            game,
+            board.updated_at,
+            is_computer_playing,
+            computer_player.symbol
+        )
         
         data_service.save_game_data(game)
 
@@ -100,12 +104,12 @@ while is_playing: # Start a new game
 # User is not playing again
 game_history = data_service.get_historical_game_data()
 
-if len(game_history) > 0:
+if game_history:
     ui.print_historical_game_data(game_history)
 
 data_service.delete_historical_game_data()
 
 ui.print_game_end_message(datetime.now())
 
-program_run_time = program_timer.stop()
+program_run_time = round(program_timer.stop(), 2)
 ui.print_end_program_message(program_run_time)

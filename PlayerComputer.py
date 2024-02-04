@@ -1,5 +1,7 @@
 import random
 
+from typing import Optional
+
 from Board import Board
 from Game import PlayerSymbol
 from Player import Player
@@ -11,8 +13,8 @@ class PlayerComputer(Player):
         new_board = board
         valid_moves = new_board.get_valid_moves()
 
-        def check_for_win(symbol: PlayerSymbol) -> str:
-            best_move = None
+        def check_for_win(symbol: PlayerSymbol) -> Optional[str]:
+            winning_move = None
 
             for valid_move in valid_moves:
                 new_board.update_board(valid_move, symbol)
@@ -20,35 +22,32 @@ class PlayerComputer(Player):
                 is_game_over, _ = new_board.is_game_over()
 
                 if is_game_over:
-                    best_move = valid_move
+                    winning_move = valid_move
                     break
                 else:
                     new_board.clear_cell(valid_move)
                     continue
             
-            return best_move
+            return winning_move
 
         # Try to win
         move = check_for_win(self.symbol)
 
-        if move is None:
-            # Block opponent's win
+        if move is None: # Block opponent's win
             opponent_symbol = (PlayerSymbol.O.value
                                if self.symbol == PlayerSymbol.X.value
                                else PlayerSymbol.X.value)
             move = check_for_win(opponent_symbol)
 
-        if move is None:
-            # Choose a random corner or center
+        if move is None: # Choose a random corner or center
             valid_center_and_corners = ([corner for corner 
                                          in CENTER_AND_CORNERS
                                          if corner in valid_moves])
             
-            if len(valid_center_and_corners) > 0:
+            if valid_center_and_corners:
                 move = str(random.choice(valid_center_and_corners))
 
-        if move is None:
-            # Choose a random move
+        if move is None: # Choose a random move
             move = str(random.choice(valid_moves))
 
         return move

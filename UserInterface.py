@@ -24,8 +24,12 @@ class UserInterface:
                         for i in range(0, 9, 3)]))
         print("\n")
 
-    def print_probability(self, player_symbol: PlayerSymbol,
-                          probability: float, duration: float) -> None:
+    def print_probability(
+            self,
+            player_symbol: PlayerSymbol,
+            probability: float,
+            duration: float
+        ) -> None:
         print(f"Player {player_symbol} has a " +
               f"{probability}% chance of winning, " +
               f"which took {duration} nanoseconds to calculate.")
@@ -38,9 +42,13 @@ class UserInterface:
         else:
             print(f"Player {winner} wins!\n")
 
-    def print_game_details(self, game: Game, datetime: datetime,
-                           is_computer_playing: bool,
-                           symbol: PlayerSymbol) -> None:
+    def print_game_details(
+            self,
+            game: Game,
+            datetime: datetime,
+            is_computer_playing: bool,
+            symbol: PlayerSymbol
+        ) -> None:
         x_time_unit = (TimeUnit.NANOSECONDS.value
                        if is_computer_playing
                        and symbol == PlayerSymbol.X.value
@@ -50,9 +58,11 @@ class UserInterface:
                        and symbol == PlayerSymbol.O.value
                        else TimeUnit.SECONDS.value)
         
-        print(f"Player X took {round(game.player_x_turn_duration, 2)} " +
+        print(f"Player {PlayerSymbol.X.value} " +
+              f"took {round(game.player_x_turn_duration, 2)} " +
               f"{x_time_unit} to play. " +
-              f"Player O took {round(game.player_o_turn_duration, 2)} " +
+              f"Player {PlayerSymbol.O.value} " +
+              f"took {round(game.player_o_turn_duration, 2)} " +
               f"{o_time_unit} to play. " +
               f"Game took {game.duration} seconds to play, " +
               f"ending at {datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}.")
@@ -89,18 +99,23 @@ class UserInterface:
                 winner_message = f"{game.winner} won"
             
             print(f"Game {game_num} took {game.duration} seconds " +
-                    f"to play and {winner_message}. " +
-                    f"X took {x_turn_duration} seconds to play and " +
-            f"O took {o_turn_duration} seconds to play.")
+                  f"to play and {winner_message}. " +
+                  f"{PlayerSymbol.X.value} took {x_turn_duration} seconds " +
+                  f"to play and " +
+                  f"{PlayerSymbol.O.value} took {o_turn_duration} seconds " +
+                  f"to play.")
 
         # TODO: Handle case with mixed time units for same player,
         #       i.e., multiple-game sessions where the computer
         #       played as X and O.
         print(f"\nOut of {game_count} game(s), " +
-            f"X won {x_win_percentage}% and " +
-            f"O won {o_win_percentage}%. Congratulations!\n" +
-            f"X took a total of {x_turn_duration} seconds to play and " +
-            f"O took a total of {o_turn_duration} seconds to play.\n")
+              f"{PlayerSymbol.X.value} won {x_win_percentage}% and " +
+              f"{PlayerSymbol.O.value} won {o_win_percentage}%. " +
+              f"Congratulations!\n" +
+              f"{PlayerSymbol.X.value} took a total of {x_turn_duration} " +
+              f"seconds to play and " +
+              f"{PlayerSymbol.O.value} took a total of {o_turn_duration} " +
+              f"seconds to play.\n")
 
     def print_game_end_message(self, datetime: datetime) -> None:
         print(f"\nThe game ended at "+
