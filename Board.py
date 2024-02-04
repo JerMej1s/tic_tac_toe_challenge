@@ -18,7 +18,7 @@ class Board:
         self.possible_boards = set()
         self.updated_at = datetime.now()
     
-    def update_board(self, cell: str, player_symbol: PlayerSymbol) -> None:
+    def update_board(self, player_symbol: PlayerSymbol, cell: str) -> None:
         self.board[int(cell) - 1] = player_symbol
         self.updated_at = datetime.now()
 

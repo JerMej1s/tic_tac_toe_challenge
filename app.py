@@ -75,7 +75,7 @@ while is_playing: # Start a new game
                 break
             
         if is_playing: # Make player's move, end turn, and check if game over
-            board.update_board(player_move, game.current_player)
+            board.update_board(game.current_player, player_move)
             
             turn_duration = round(turn_timer.stop(), 2)
             game.tabulate_turn_duration(turn_duration)
