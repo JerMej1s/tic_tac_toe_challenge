@@ -14,8 +14,9 @@ class PlayerHuman(Player):
         valid_moves = board.get_valid_moves()
 
         probability_timer.start()
-        win_probability = (round(
-            board.get_win_probability(self.symbol) * 100, 2))
+        win_probability = round(
+            board.get_win_probability(self.symbol) * 100, 2
+        )
         probability_duration = round(probability_timer.stop(), 2)
 
         while True:
@@ -27,9 +28,10 @@ class PlayerHuman(Player):
                 probability_duration
             )
 
-            user_input = input(f"Player {self.symbol}, " +
-                               f"enter a number {valid_moves} " +
-                               f"or 'q' to quit: ").lower()
+            user_input = input(
+                f"Player {self.symbol}, enter a number {valid_moves} " +
+                "or 'q' to quit: "
+            ).lower()
 
             if user_input in valid_moves:
                 move = user_input

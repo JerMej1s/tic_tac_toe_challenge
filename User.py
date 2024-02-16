@@ -15,8 +15,10 @@ class User:
 
     def is_computer_playing(self) -> Optional[bool]:
         while True:
-            user_input = input("\nDo you want to play against the computer?" +
-                               " [y/n or q to quit]: ").lower()
+            user_input = input(
+                "\nDo you want to play against the computer? " +
+                "[y/n or q to quit]: "
+            ).lower()
             
             if user_input == UserInput.YES.value:
                 return True
@@ -30,8 +32,9 @@ class User:
     
     def does_computer_go_first(self) -> Optional[bool]:
         while True:
-            user_input = input("\nDo you want to go first? " +
-                                "[y/n or q to quit]: ").lower()
+            user_input = input(
+                "\nDo you want to go first? [y/n or q to quit]: "
+            ).lower()
             
             if user_input == UserInput.YES.value:
                 return False 
@@ -45,8 +48,9 @@ class User:
 
     def is_playing_again(self) -> bool:
         while True:
-            user_input = (input("\nDo you want to play again? [y/n/q]: ")
-                            .lower())
+            user_input = input(
+                "\nDo you want to play again? [y/n/q]: "
+            ).lower()
             
             if user_input == UserInput.YES.value:
                 return True

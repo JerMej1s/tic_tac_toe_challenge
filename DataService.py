@@ -3,6 +3,8 @@ import pickle
 
 from Game import Game
 
+GAME_HISTORY_FILE = 'game_history.pkl'
+
 class DataService:
     def __init__(self):
         pass
@@ -11,19 +13,19 @@ class DataService:
         game.possible_boards = None
 
         try:
-            with open('game_history.pkl', 'ab') as f:
+            with open(GAME_HISTORY_FILE, 'ab') as f:
                 pickle.dump(game, f)
         except:
             pass
 
-    def get_historical_game_data(self) -> []:
+    def get_historical_game_data(self) -> list[Game]:
         historical_game_data = []
 
         try:
-            with open('game_history.pkl', 'rb') as f:
+            with open(GAME_HISTORY_FILE, 'rb') as f:
                 while True:
                     try:
-                        game = pickle.load(f)
+                        game: Game = pickle.load(f)
                         historical_game_data.append(game)
                     except EOFError:
                         break
@@ -34,6 +36,6 @@ class DataService:
 
     def delete_historical_game_data(self) -> None:
         try:
-            os.remove('game_history.pkl')
+            os.remove(GAME_HISTORY_FILE)
         except FileNotFoundError:
             pass

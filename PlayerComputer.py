@@ -34,15 +34,18 @@ class PlayerComputer(Player):
         move = get_winning_move(self.symbol)
 
         if move is None: # Block opponent's win
-            opponent_symbol = (PlayerSymbol.O.value
-                               if self.symbol == PlayerSymbol.X.value
-                               else PlayerSymbol.X.value)
+            opponent_symbol = (
+                PlayerSymbol.O.value
+                if self.symbol == PlayerSymbol.X.value
+                else PlayerSymbol.X.value
+            )
             move = get_winning_move(opponent_symbol)
 
         if move is None: # Choose a random corner or center
-            valid_center_and_corners = ([corner for corner 
-                                         in CENTER_AND_CORNERS
-                                         if corner in valid_moves])
+            valid_center_and_corners = [
+                corner for corner in CENTER_AND_CORNERS
+                if corner in valid_moves
+            ]
             
             if valid_center_and_corners:
                 move = str(random.choice(valid_center_and_corners))
