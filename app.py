@@ -94,7 +94,7 @@ while is_playing: # Start a new game
             game,
             board.updated_at,
             is_computer_playing,
-            computer_player.symbol
+            human_player.symbol
         )
         
         data_service.save_game_data(game)

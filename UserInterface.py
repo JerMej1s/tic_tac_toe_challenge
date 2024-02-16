@@ -47,15 +47,15 @@ class UserInterface:
             game: Game,
             datetime: datetime,
             is_computer_playing: bool,
-            symbol: PlayerSymbol
+            human_symbol: PlayerSymbol
         ) -> None:
         x_time_unit = (TimeUnit.NANOSECONDS.value
                        if is_computer_playing
-                       and symbol == PlayerSymbol.X.value
+                       and human_symbol == PlayerSymbol.O.value
                        else TimeUnit.SECONDS.value)
         o_time_unit = (TimeUnit.NANOSECONDS.value
                        if is_computer_playing
-                       and symbol == PlayerSymbol.O.value
+                       and human_symbol == PlayerSymbol.X.value
                        else TimeUnit.SECONDS.value)
         
         print(f"Player {PlayerSymbol.X.value} " +
