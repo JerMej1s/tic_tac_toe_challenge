@@ -53,7 +53,6 @@ class UserInterface:
             datetime: datetime,
             is_computer_playing: bool,
             human_symbol: PlayerSymbol
-            human_symbol: PlayerSymbol
         ) -> None:
         x_time_unit = (
             TimeUnit.NANOSECONDS.value
