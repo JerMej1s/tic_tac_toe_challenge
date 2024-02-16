@@ -57,36 +57,36 @@ while is_playing: # Start a new game
 
         player_move = None
 
-        if (is_computer_playing and game.current_player == (
-            computer_player.symbol)): # Non-human player's turn
+        if is_computer_playing and (
+            game.current_player == computer_player.symbol
+        ):
+            # Non-human player's turn
             turn_timer.unit = TimeUnit.NANOSECONDS
             turn_timer.start()
-
             player_move = computer_player.get_move(board)
-        else: # Human player's turn
+        else:
+            # Human player's turn
             human_player.symbol = game.current_player
             turn_timer.unit = TimeUnit.SECONDS
             turn_timer.start()
-            
             player_move = human_player.get_move(board)
 
-            if player_move is None:
+            if player_move is None: # User entered 'q' to quit
                 is_playing = False
                 break
             
-        if is_playing: # Make player's move, end turn, and check if game over
+        if is_playing:
             board.update_board(game.current_player, player_move)
             
             turn_duration = round(turn_timer.stop(), 2)
             game.tabulate_turn_duration(turn_duration)
-
             is_first_turn = False
 
             is_game_over, game.winner = board.is_game_over()
         else:
             break
 
-    if is_playing: # Game is over
+    if is_playing: # Game is over but user has not quit
         game.duration = round(game_timer.stop(), 2)
         ui.print_board(board.board)
         ui.print_winner(game.winner)
@@ -94,7 +94,7 @@ while is_playing: # Start a new game
             game,
             board.updated_at,
             is_computer_playing,
-            computer_player.symbol
+            human_player.symbol
         )
         
         data_service.save_game_data(game)
@@ -103,7 +103,6 @@ while is_playing: # Start a new game
 
 # User is not playing again
 game_history = data_service.get_historical_game_data()
-
 if game_history:
     ui.print_historical_game_data(game_history)
 

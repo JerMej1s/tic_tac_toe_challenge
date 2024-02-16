@@ -9,19 +9,23 @@ class UserInterface:
         pass
     
     def print_game_start_message(self, datetime: datetime) -> None:
-        print(f"\nHello world! The game started at " +
-              f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}." +
-              "\n\nLet's play Tic Tac Toe!")
+        print(
+            "\nHello world! The game started at " +
+            f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}." +
+            "\n\nLet's play Tic Tac Toe!"
+        )
  
     def print_board_timestamp(self, datetime: datetime) -> None:
-        print("\n" +
-              f"The game board was last updated at " +
-              f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}.")
+        print(
+            "\nThe game board was last updated at " +
+            f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}."
+        )
 
     def print_board(self, board: Board) -> None:
         print("\n")
-        print("\n".join(["|".join(board[i:i+3])
-                        for i in range(0, 9, 3)]))
+        print("\n".join(
+            ["|".join(board[i:i+3]) for i in range(0, 9, 3)]
+        ))
         print("\n")
 
     def print_probability(
@@ -30,9 +34,10 @@ class UserInterface:
             probability: float,
             duration: float
         ) -> None:
-        print(f"Player {player_symbol} has a " +
-              f"{probability}% chance of winning, " +
-              f"which took {duration} nanoseconds to calculate.")
+        print(
+            f"Player {player_symbol} has a {probability}% probability " +
+            f"to win, which took {duration} nanoseconds to calculate."
+        )
 
     def print_winner(self, winner: str) -> None:
         if winner == None:
@@ -47,33 +52,41 @@ class UserInterface:
             game: Game,
             datetime: datetime,
             is_computer_playing: bool,
-            symbol: PlayerSymbol
+            human_symbol: PlayerSymbol = None
         ) -> None:
-        x_time_unit = (TimeUnit.NANOSECONDS.value
-                       if is_computer_playing
-                       and symbol == PlayerSymbol.X.value
-                       else TimeUnit.SECONDS.value)
-        o_time_unit = (TimeUnit.NANOSECONDS.value
-                       if is_computer_playing
-                       and symbol == PlayerSymbol.O.value
-                       else TimeUnit.SECONDS.value)
+        x_time_unit = (
+            TimeUnit.NANOSECONDS.value
+            if is_computer_playing and human_symbol == PlayerSymbol.O.value
+            else TimeUnit.SECONDS.value
+        )
+        o_time_unit = (
+            TimeUnit.NANOSECONDS.value
+            if is_computer_playing and human_symbol == PlayerSymbol.X.value
+            else TimeUnit.SECONDS.value
+        )
         
-        print(f"Player {PlayerSymbol.X.value} " +
-              f"took {round(game.player_x_turn_duration, 2)} " +
-              f"{x_time_unit} to play. " +
-              f"Player {PlayerSymbol.O.value} " +
-              f"took {round(game.player_o_turn_duration, 2)} " +
-              f"{o_time_unit} to play. " +
-              f"Game took {game.duration} seconds to play, " +
-              f"ending at {datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}.")
+        print(
+            f"Player {PlayerSymbol.X.value} " +
+            f"took {round(game.player_x_turn_duration, 2)} " +
+            f"{x_time_unit} to play. " +
+            f"Player {PlayerSymbol.O.value} " +
+            f"took {round(game.player_o_turn_duration, 2)} " +
+            f"{o_time_unit} to play. " +
+            f"Game took {game.duration} seconds to play, " +
+            f"ending at {datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}."
+        )
 
-    def print_historical_game_data(self, game_history: []) -> None:
+    def print_historical_game_data(self, game_history: list[Game]) -> None:
         game_count = len(game_history)
 
-        x_win_count = len(([game for game in game_history
-                            if game.winner == PlayerSymbol.X.value]))
-        o_win_count = len(([game for game in game_history
-                            if game.winner == PlayerSymbol.O.value]))
+        x_win_count = len([
+            game for game in game_history
+            if game.winner == PlayerSymbol.X.value
+        ])
+        o_win_count = len([
+            game for game in game_history
+            if game.winner == PlayerSymbol.O.value
+        ])
         
         x_win_percentage = round(x_win_count / game_count * 100, 2)
         o_win_percentage = round(o_win_count / game_count * 100, 2)
@@ -81,8 +94,9 @@ class UserInterface:
         total_x_turn_duration = 0
         total_o_turn_duration = 0
 
-        print("\nGame History:" +
-                "\n-------------\n")
+        print(
+            "\nGame History:" +
+            "\n-------------\n")
         
         for game in game_history:
             game_num = game_history.index(game) + 1
@@ -98,29 +112,34 @@ class UserInterface:
             else:
                 winner_message = f"{game.winner} won"
             
-            print(f"Game {game_num} took {game.duration} seconds " +
-                  f"to play and {winner_message}. " +
-                  f"{PlayerSymbol.X.value} took {x_turn_duration} seconds " +
-                  f"to play and " +
-                  f"{PlayerSymbol.O.value} took {o_turn_duration} seconds " +
-                  f"to play.")
+            print(
+                f"Game {game_num} took {game.duration} seconds " +
+                f"to play and {winner_message}. " +
+                f"{PlayerSymbol.X.value} took {x_turn_duration} seconds " +
+                "to play and " +
+                f"{PlayerSymbol.O.value} took {o_turn_duration} seconds " +
+                "to play."
+            )
 
         # TODO: Handle case with mixed time units for same player,
         #       i.e., multiple-game sessions where the computer
         #       played as X and O.
-        print(f"\nOut of {game_count} game(s), " +
-              f"{PlayerSymbol.X.value} won {x_win_percentage}% and " +
-              f"{PlayerSymbol.O.value} won {o_win_percentage}%. " +
-              f"Congratulations!\n" +
-              f"{PlayerSymbol.X.value} took a total of {x_turn_duration} " +
-              f"seconds to play and " +
-              f"{PlayerSymbol.O.value} took a total of {o_turn_duration} " +
-              f"seconds to play.\n")
+        print(
+            f"\nOut of {game_count} game(s), " +
+            f"{PlayerSymbol.X.value} won {x_win_percentage}% and " +
+            f"{PlayerSymbol.O.value} won {o_win_percentage}%. " +
+            "Congratulations!\n" +
+            f"{PlayerSymbol.X.value} took a total of {x_turn_duration} " +
+            "seconds to play and " +
+            f"{PlayerSymbol.O.value} took a total of {o_turn_duration} " +
+            "seconds to play.\n")
 
     def print_game_end_message(self, datetime: datetime) -> None:
-        print(f"\nThe game ended at "+
-              f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}." +
-              "\n\nThanks for playing! Goodbye world!")
+        print(
+            "\nThe game ended at " +
+            f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}." +
+            "\n\nThanks for playing! Goodbye world!"
+        )
 
     def print_end_program_message(self, run_time: datetime) -> None:
         print(f"\nProgram was running for {run_time} seconds.\n")
