@@ -1,9 +1,9 @@
 from datetime import datetime
+from typing import Optional
 
 from Board import Board
 from DataService import DataService
-from Game import Game
-from Player import PlayerSymbol
+from Game import Game, PlayerSymbol
 from PlayerAI import PlayerAI
 # from PlayerComputer import PlayerComputer
 from PlayerHuman import PlayerHuman
@@ -23,20 +23,18 @@ turn_timer = Timer()
 data_service = DataService()
 
 program_timer.start()
-
 ui.print_game_start_message(datetime.now())
-
-is_playing = True
+is_playing: bool = True
 
 while is_playing: # Start a new game
     board.reset_board()
-    is_first_turn = True
-    is_game_over = False
+    is_first_turn: bool = True
+    is_game_over: bool = False
     
-    is_computer_playing = user.is_computer_playing()
+    is_computer_playing: bool = user.is_computer_playing()
 
     if is_computer_playing: # Determine players' symbols
-        is_computer_first = (user.does_computer_go_first())
+        is_computer_first: bool = user.does_computer_go_first()
         
         if is_computer_first:
             human_player.symbol = PlayerSymbol.O.value
@@ -57,55 +55,59 @@ while is_playing: # Start a new game
         if not is_first_turn:
             game.switch_player()
 
-        player_move = None
+        player_move: Optional[str] = None
 
-        if (is_computer_playing and game.current_player == (
-            computer_player.symbol)): # Non-human player's turn
+        if (is_computer_playing
+            and game.current_player == computer_player.symbol
+        ):
+            # Non-human player's turn
             turn_timer.unit = TimeUnit.NANOSECONDS
             turn_timer.start()
-
             player_move = computer_player.get_move(board)
-        else: # Human player's turn
+        else:
+            # Human player's turn
             human_player.symbol = game.current_player
             turn_timer.unit = TimeUnit.SECONDS
             turn_timer.start()
-            
             player_move = human_player.get_move(board)
 
-            if player_move is None:
+            if player_move is None: # User entered 'q' to quit
                 is_playing = False
                 break
             
-        if is_playing: # Make player's move and end turn
-            board.update_board(player_move, game.current_player)
+        if is_playing:
+            board.update_board(game.current_player, player_move)
+            
+            turn_duration: float = round(turn_timer.stop(), 2)
+            game.tabulate_turn_duration(turn_duration)
+            is_first_turn = False
 
             is_game_over, game.winner = board.is_game_over()
-            
-            turn_duration = turn_timer.stop()
-            game.tabulate_turn_duration(turn_duration)
-
-            is_first_turn = False
         else:
             break
 
-    if is_playing: # Game is over
-        game.duration = game_timer.stop()
+    if is_playing: # Game is over but user has not quit
+        game.duration = round(game_timer.stop(), 2)
         ui.print_board(board.board)
         ui.print_winner(game.winner)
-        ui.print_game_details(game, board.updated_at, is_computer_playing, computer_player.symbol)
+        ui.print_game_details(
+            game,
+            board.updated_at,
+            is_computer_playing,
+            human_player.symbol
+        )
+        
         data_service.save_game_data(game)
 
         is_playing = user.is_playing_again()
 
 # User is not playing again
-game_history = data_service.get_historical_game_data()
-
-if len(game_history) > 0:
+game_history: list[Game] = data_service.get_historical_game_data()
+if game_history:
     ui.print_historical_game_data(game_history)
-
 data_service.delete_historical_game_data()
 
 ui.print_game_end_message(datetime.now())
 
-program_run_time = program_timer.stop()
+program_run_time = round(program_timer.stop(), 2)
 ui.print_end_program_message(program_run_time)

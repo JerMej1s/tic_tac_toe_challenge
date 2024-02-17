@@ -1,5 +1,6 @@
 from typing import Optional
 
+from Board import Board
 from Player import Player
 from Timer import Timer, TimeUnit
 from User import ErrorMessage, UserInput
@@ -9,23 +10,28 @@ ui = UserInterface()
 probability_timer = Timer(TimeUnit.NANOSECONDS)
 
 class PlayerHuman(Player):
-    def get_move(self, board) -> Optional[str]:
-        valid_moves = board.get_valid_moves()
+    def get_move(self, board: Board) -> Optional[str]:
+        valid_moves: list[str] = board.get_valid_moves()
 
         probability_timer.start()
-        win_probability = (round(
-            board.get_win_probability(self.symbol) * 100, 2))
-        probability_duration = probability_timer.stop()
+        win_probability: float = round(
+            board.get_win_probability(self.symbol) * 100, 2
+        )
+        probability_duration: float = round(probability_timer.stop(), 2)
 
         while True:
             ui.print_board_timestamp(board.updated_at)
             ui.print_board(board.board)
-            ui.print_probability(self.symbol, win_probability,
-                                 probability_duration)
+            ui.print_probability(
+                self.symbol,
+                win_probability,
+                probability_duration
+            )
 
-            user_input = input(f"Player {self.symbol}, " +
-                               f"enter a number {valid_moves} " +
-                               f"or 'q' to quit: ").lower()
+            user_input: str = input(
+                f"Player {self.symbol}, enter a number {valid_moves} " +
+                "or 'q' to quit: "
+            ).lower()
 
             if user_input in valid_moves:
                 move = user_input

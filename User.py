@@ -9,14 +9,21 @@ class UserInput(Enum):
     NO = 'n'
     QUIT = 'q'
 
+INPUT_OPTIONS = (
+    f"[{UserInput.YES.value}/{UserInput.NO.value} " +
+    f"or {UserInput.QUIT.value} to quit]"
+)
+
 class User:
     def __init__(self) -> None:
         pass
 
     def is_computer_playing(self) -> Optional[bool]:
         while True:
-            user_input = input("\nDo you want to play against the computer?" +
-                               " [y/n or q to quit]: ").lower()
+            user_input: str = input(
+                "\nDo you want to play against the computer? " +
+                f"{INPUT_OPTIONS}: "
+            ).lower()
             
             if user_input == UserInput.YES.value:
                 return True
@@ -28,10 +35,11 @@ class User:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
     
-    def does_computer_go_first(self) -> (Optional[bool]):
+    def does_computer_go_first(self) -> Optional[bool]:
         while True:
-            user_input = input("\nDo you want to go first? " +
-                                "[y/n or q to quit]: ").lower()
+            user_input: str = input(
+                f"\nDo you want to go first? {INPUT_OPTIONS}: "
+            ).lower()
             
             if user_input == UserInput.YES.value:
                 return False 
@@ -45,14 +53,17 @@ class User:
 
     def is_playing_again(self) -> bool:
         while True:
-            user_input = (input("\nDo you want to play again? [y/n/q]: ")
-                            .lower())
+            user_input: str = input(
+                f"\nDo you want to play again? {INPUT_OPTIONS}: "
+            ).lower()
             
-            if (user_input == UserInput.NO.value
-                or user_input == UserInput.QUIT.value):
-                return False
-            elif user_input == UserInput.YES.value:
+            if user_input == UserInput.YES.value:
                 return True
+            elif (
+                user_input == UserInput.NO.value
+                or user_input == UserInput.QUIT.value
+            ):
+                return False
             else:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
