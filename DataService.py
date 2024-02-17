@@ -19,7 +19,7 @@ class DataService:
             pass
 
     def get_historical_game_data(self) -> list[Game]:
-        historical_game_data = []
+        historical_game_data: list[Game] = []
 
         try:
             with open(GAME_HISTORY_FILE, 'rb') as f:

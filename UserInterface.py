@@ -77,40 +77,40 @@ class UserInterface:
         )
 
     def print_historical_game_data(self, game_history: list[Game]) -> None:
-        game_count = len(game_history)
+        game_count: int = len(game_history)
 
-        x_win_count = len([
+        x_win_count: int = len([
             game for game in game_history
             if game.winner == PlayerSymbol.X.value
         ])
-        o_win_count = len([
+        o_win_count: int = len([
             game for game in game_history
             if game.winner == PlayerSymbol.O.value
         ])
         
-        x_win_percentage = round(x_win_count / game_count * 100, 2)
-        o_win_percentage = round(o_win_count / game_count * 100, 2)
+        x_win_percentage: float = round(x_win_count / game_count * 100, 2)
+        o_win_percentage: float = round(o_win_count / game_count * 100, 2)
 
-        total_x_turn_duration = 0
-        total_o_turn_duration = 0
+        total_x_turn_duration: float = 0
+        total_o_turn_duration: float = 0
 
         print(
             "\nGame History:" +
             "\n-------------\n")
         
         for game in game_history:
-            game_num = game_history.index(game) + 1
+            game_num: int = game_history.index(game) + 1
 
-            x_turn_duration = round(game.player_x_turn_duration, 2)
-            o_turn_duration = round(game.player_o_turn_duration, 2)
+            x_turn_duration: float = round(game.player_x_turn_duration, 2)
+            o_turn_duration: float = round(game.player_o_turn_duration, 2)
 
             total_x_turn_duration += game.player_x_turn_duration
             total_o_turn_duration += game.player_o_turn_duration
 
             if game.winner == "draw":
-                winner_message = "it was a draw"
+                winner_message: str = "it was a draw"
             else:
-                winner_message = f"{game.winner} won"
+                winner_message: str = f"{game.winner} won"
             
             print(
                 f"Game {game_num} took {game.duration} seconds " +

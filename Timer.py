@@ -1,6 +1,7 @@
 import time
 
 from enum import Enum
+from typing import Optional
 
 class TimeUnit(Enum):
     SECONDS = 's'
@@ -9,10 +10,10 @@ class TimeUnit(Enum):
 
 class Timer:
     def __init__(self, unit: TimeUnit = TimeUnit.SECONDS):
-        self.unit = unit
-        self.start_time = None
-        self.end_time = None
-        self.duration = None
+        self.unit: TimeUnit = unit
+        self.start_time: Optional[float] = None
+        self.end_time: Optional[float] = None
+        self.duration: Optional[float] = None
     
     def start(self) -> None:
         if self.unit is TimeUnit.MILLISECONDS:

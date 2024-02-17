@@ -7,4 +7,4 @@ class Player:
         pass
 
     def get_move(self, board: Board) -> Optional[str]:
-        board = board
+        board: Board = board
