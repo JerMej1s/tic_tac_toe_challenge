@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from Board import Board
 from DataService import DataService
@@ -21,20 +22,18 @@ turn_timer = Timer()
 data_service = DataService()
 
 program_timer.start()
-
 ui.print_game_start_message(datetime.now())
-
-is_playing = True
+is_playing: bool = True
 
 while is_playing: # Start a new game
     board.reset_board()
-    is_first_turn = True
-    is_game_over = False
+    is_first_turn: bool = True
+    is_game_over: bool = False
     
-    is_computer_playing = user.is_computer_playing()
+    is_computer_playing: bool = user.is_computer_playing()
 
     if is_computer_playing: # Determine players' symbols
-        is_computer_first = user.does_computer_go_first()
+        is_computer_first: bool = user.does_computer_go_first()
         
         if is_computer_first:
             human_player.symbol = PlayerSymbol.O.value
@@ -55,10 +54,10 @@ while is_playing: # Start a new game
         if not is_first_turn:
             game.switch_player()
 
-        player_move = None
+        player_move: Optional[str] = None
 
-        if is_computer_playing and (
-            game.current_player == computer_player.symbol
+        if (is_computer_playing
+            and game.current_player == computer_player.symbol
         ):
             # Non-human player's turn
             turn_timer.unit = TimeUnit.NANOSECONDS
@@ -78,7 +77,7 @@ while is_playing: # Start a new game
         if is_playing:
             board.update_board(game.current_player, player_move)
             
-            turn_duration = round(turn_timer.stop(), 2)
+            turn_duration: float = round(turn_timer.stop(), 2)
             game.tabulate_turn_duration(turn_duration)
             is_first_turn = False
 
@@ -102,10 +101,9 @@ while is_playing: # Start a new game
         is_playing = user.is_playing_again()
 
 # User is not playing again
-game_history = data_service.get_historical_game_data()
+game_history: list[Game] = data_service.get_historical_game_data()
 if game_history:
     ui.print_historical_game_data(game_history)
-
 data_service.delete_historical_game_data()
 
 ui.print_game_end_message(datetime.now())

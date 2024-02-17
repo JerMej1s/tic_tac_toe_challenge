@@ -14,9 +14,9 @@ WINNING_COMBINATIONS = [
 
 class Board:
     def __init__(self):
-        self.board = [str(i) for i in range(1, 10)]
-        self.possible_boards = set()
-        self.updated_at = datetime.now()
+        self.board: list[str] = [str(i) for i in range(1, 10)]
+        self.possible_boards: set = set()
+        self.updated_at: datetime = datetime.now()
     
     def update_board(self, player_symbol: PlayerSymbol, cell: str) -> None:
         self.board[int(cell) - 1] = player_symbol

@@ -11,13 +11,13 @@ probability_timer = Timer(TimeUnit.NANOSECONDS)
 
 class PlayerHuman(Player):
     def get_move(self, board: Board) -> Optional[str]:
-        valid_moves = board.get_valid_moves()
+        valid_moves: list[str] = board.get_valid_moves()
 
         probability_timer.start()
-        win_probability = round(
+        win_probability: float = round(
             board.get_win_probability(self.symbol) * 100, 2
         )
-        probability_duration = round(probability_timer.stop(), 2)
+        probability_duration: float = round(probability_timer.stop(), 2)
 
         while True:
             ui.print_board_timestamp(board.updated_at)
@@ -28,7 +28,7 @@ class PlayerHuman(Player):
                 probability_duration
             )
 
-            user_input = input(
+            user_input: str = input(
                 f"Player {self.symbol}, enter a number {valid_moves} " +
                 "or 'q' to quit: "
             ).lower()
