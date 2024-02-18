@@ -39,28 +39,7 @@ class PlayerComputer(Player):
             
             return winning_move
 
-        def minimax(
-                move: str,
-                is_maximizing: bool = True
-            ) -> int:
-            symbol: PlayerSymbol = (
-                self.symbol
-                if is_maximizing
-                else opponent_symbol
-            )
-            new_board.update_board(symbol, move)
-            
-            game_over, _ = new_board.is_game_over()
-            
-            if game_over:
-                return new_board.evaluate_score(self.symbol)
-            else:
-                return (max if is_maximizing else min)(
-                    minimax(next_move, not is_maximizing)
-                    for next_move in valid_moves
-                )
-
-        if self.difficulty_level != DifficultyLevel.EASY.value:
+        if self.difficulty_level != DifficultyLevel.EASY:
             # Try to win
             move = get_winning_move(self.symbol)
 
@@ -69,20 +48,13 @@ class PlayerComputer(Player):
                 move = get_winning_move(opponent_symbol)
 
             if move is None:
-                if (
-                    self.difficulty_level == DifficultyLevel.MEDIUM.value
-                    or len(valid_moves) == 9
-                ):
-                    # Choose a random corner or center
-                    valid_center_and_corners = [
-                        corner for corner in CENTER_AND_CORNERS
-                        if corner in valid_moves
-                    ]
-                    if valid_center_and_corners:
-                        move = str(random.choice(valid_center_and_corners))
-                else:
-                    # Use minimax algorithm to choose best move
-                    move = max(valid_moves, key = minimax)
+                # Choose a random corner or center
+                valid_center_and_corners = [
+                    corner for corner in CENTER_AND_CORNERS
+                    if corner in valid_moves
+                ]
+                if valid_center_and_corners:
+                    move = str(random.choice(valid_center_and_corners))
 
         if move is None:
             # Choose a random move

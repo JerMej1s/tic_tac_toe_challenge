@@ -4,7 +4,7 @@ from typing import Optional
 class DifficultyLevel(Enum):
     EASY = 'easy'
     MEDIUM = 'medium'
-    HARD = 'hard'
+    # HARD = 'hard'
 
 class ErrorMessage(Enum):
     INVALID_INPUT = "Invalid input. Please try again."
@@ -15,7 +15,7 @@ class UserInput(Enum):
     QUIT = 'q'
     ONE = '1'
     TWO = '2'
-    THREE = '3'
+    # THREE = '3'
 
 YES_NO_QUIT_INPUT_OPTIONS = (
     f"[{UserInput.YES.value}/{UserInput.NO.value} " +
@@ -51,8 +51,8 @@ class User:
                 f"{DifficultyLevel.EASY.value}, " +
                 f"{UserInput.TWO.value} for " +
                 f"{DifficultyLevel.MEDIUM.value}, " +
-                f"{UserInput.THREE.value} for "+
-                f"{DifficultyLevel.HARD.value}, " +
+                # f"{UserInput.THREE.value} for "+
+                # f"{DifficultyLevel.HARD.value}, " +
                 f"or {UserInput.QUIT.value} to quit: "
             ).lower()
             
@@ -60,8 +60,8 @@ class User:
                 return DifficultyLevel.EASY
             elif user_input == UserInput.TWO.value:
                 return DifficultyLevel.MEDIUM
-            elif user_input == UserInput.THREE.value:
-                return DifficultyLevel.HARD
+            # elif user_input == UserInput.THREE.value:
+            #     return DifficultyLevel.HARD
             elif user_input == UserInput.QUIT.value:
                 return None
             else:
