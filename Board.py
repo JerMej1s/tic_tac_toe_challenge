@@ -1,6 +1,7 @@
 import itertools
 
 from datetime import datetime
+from typing import Optional
 
 from Game import PlayerSymbol
 
@@ -84,3 +85,16 @@ class Board:
             return True, 'draw'
         
         return False, None 
+    
+    def evaluate_score(self, symbol: PlayerSymbol) -> Optional[int]:
+        game_over, winner = self.is_game_over()
+
+        if game_over:
+            if winner == symbol:
+                return 1
+            elif winner == 'draw':
+                return 0
+            else:
+                return -1
+        else:
+            raise ValueError('Game is not over yet.')

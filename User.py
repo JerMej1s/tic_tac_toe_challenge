@@ -1,6 +1,11 @@
 from enum import Enum
 from typing import Optional
 
+class DifficultyLevel(Enum):
+    EASY = 'easy'
+    MEDIUM = 'medium'
+    HARD = 'hard'
+
 class ErrorMessage(Enum):
     INVALID_INPUT = "Invalid input. Please try again."
 
@@ -8,8 +13,11 @@ class UserInput(Enum):
     YES = 'y'
     NO = 'n'
     QUIT = 'q'
+    ONE = '1'
+    TWO = '2'
+    THREE = '3'
 
-INPUT_OPTIONS = (
+YES_NO_QUIT_INPUT_OPTIONS = (
     f"[{UserInput.YES.value}/{UserInput.NO.value} " +
     f"or {UserInput.QUIT.value} to quit]"
 )
@@ -22,7 +30,7 @@ class User:
         while True:
             user_input: str = input(
                 "\nDo you want to play against the computer? " +
-                f"{INPUT_OPTIONS}: "
+                f"{YES_NO_QUIT_INPUT_OPTIONS}: "
             ).lower()
             
             if user_input == UserInput.YES.value:
@@ -35,10 +43,35 @@ class User:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
     
+    def get_difficulty_level(self) -> Optional[DifficultyLevel]:
+        while True:
+            user_input: str = input(
+                f"\nChoose a difficulty level: " +
+                f"Enter {UserInput.ONE.value} for " +
+                f"{DifficultyLevel.EASY.value}, " +
+                f"{UserInput.TWO.value} for " +
+                f"{DifficultyLevel.MEDIUM.value}, " +
+                f"{UserInput.THREE.value} for "+
+                f"{DifficultyLevel.HARD.value}, " +
+                f"or {UserInput.QUIT.value} to quit: "
+            ).lower()
+            
+            if user_input == UserInput.ONE.value:
+                return DifficultyLevel.EASY
+            elif user_input == UserInput.TWO.value:
+                return DifficultyLevel.MEDIUM
+            elif user_input == UserInput.THREE.value:
+                return DifficultyLevel.HARD
+            elif user_input == UserInput.QUIT.value:
+                return None
+            else:
+                print(f"\n{ErrorMessage.INVALID_INPUT.value}")
+                continue
+
     def does_computer_go_first(self) -> Optional[bool]:
         while True:
             user_input: str = input(
-                f"\nDo you want to go first? {INPUT_OPTIONS}: "
+                f"\nDo you want to go first? {YES_NO_QUIT_INPUT_OPTIONS}: "
             ).lower()
             
             if user_input == UserInput.YES.value:
@@ -54,7 +87,7 @@ class User:
     def is_playing_again(self) -> bool:
         while True:
             user_input: str = input(
-                f"\nDo you want to play again? {INPUT_OPTIONS}: "
+                f"\nDo you want to play again? {YES_NO_QUIT_INPUT_OPTIONS}: "
             ).lower()
             
             if user_input == UserInput.YES.value:
