@@ -47,7 +47,7 @@ During the game, on each human player's turn, the program estimates the probabil
 
 ## Computer Player Strategy 💻
 
-On the computer player's turn, the program will choose a move based on the difficulty level chosen by the user:
+On the computer player's turn, the program will choose a move based on the difficulty level set by the user:
   * In easy mode, the computer player always chooses a move at random.
   * In medium mode, the computer player will choose a move based on the following prioritized criteria:
     * A move that results in an immeditate win for the computer player.
