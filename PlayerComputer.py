@@ -1,4 +1,5 @@
 import copy
+import math
 import random
 
 from typing import Optional
@@ -24,6 +25,27 @@ class PlayerComputer(Player):
         )
         move: Optional[str] = None
 
+        def minimax(
+                board: Board,
+                depth: int = 0,
+                is_maximizing: bool = True
+            ) -> int:
+            game_over, _ = board.is_game_over()
+            
+            if game_over:
+                return board.evaluate_score(self.symbol)
+            
+            bestScore = -math.inf if is_maximizing else math.inf
+            score_update = max if is_maximizing else min
+            symbol = self.symbol if is_maximizing else opponent_symbol
+
+            for valid_move in board.get_valid_moves():
+                new_board.update_board(symbol, valid_move)
+                score = minimax(new_board, depth + 1, not is_maximizing)
+                bestScore = score_update(score, bestScore)
+                new_board.clear_cell(valid_move)
+            return bestScore
+        
         def get_winning_move(symbol: PlayerSymbol) -> Optional[str]:
             winning_move: Optional[str] = None
 
@@ -38,14 +60,25 @@ class PlayerComputer(Player):
                     continue
             
             return winning_move
+        
+        if self.difficulty_level == DifficultyLevel.HARD:
+            # Use minimax algorithm to choose best move
+            bestScore: float = -math.inf
+            score: float = bestScore
 
-        if self.difficulty_level != DifficultyLevel.EASY:
-            # Try to win
-            move = get_winning_move(self.symbol)
-
-            if move is None:
-                # Block opponent's win
-                move = get_winning_move(opponent_symbol)
+            for valid_move in valid_moves:
+                new_board.update_board(self.symbol, valid_move)
+                score = minimax(new_board, 0, False)
+                new_board.clear_cell(valid_move)
+                if score > bestScore:
+                    bestScore = score
+                    move = valid_move
+        elif self.difficulty_level == DifficultyLevel.MEDIUM:
+            # Try to win or block opponent's win
+            move = (
+                get_winning_move(self.symbol)
+                or get_winning_move(opponent_symbol)
+            )
 
             if move is None:
                 # Choose a random corner or center
