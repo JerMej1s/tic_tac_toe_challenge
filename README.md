@@ -1,8 +1,6 @@
 # Tic Tac Toe
 
-In this standard game of Tic Tac Toe, users can play in the console against a computer player or against another human player.
-
-An [AI player 🧠](#artificial-intelligence-player-strategy) is currently under construction.
+In this standard game of Tic Tac Toe, users can play in the console against another human player or against a computer player and choose between three difficulty levels: easy, medium, and hard.
 
 ### Motivation 🚸
 
@@ -49,12 +47,11 @@ During the game, on each human player's turn, the program estimates the probabil
 
 ## Computer Player Strategy 💻
 
-On the computer player's turn, the program will choose a move based on the following prioritized criteria:
-  * A move that results in an immeditate win for the computer player.
-  * A move that blocks an opponent's win on their next turn.
-  * A random available center or corner cell on the board.
-  * A random available cell.
-
-## Artificial Intelligence Player Strategy 🧠
-
-🚧 This player is under construction on the `develop_ai` branch and not ready for game play. 🚧
+On the computer player's turn, the program will choose a move based on the difficulty level chosen by the user:
+  * In easy mode, the computer player always chooses a move at random.
+  * In medium mode, the computer player will choose a move based on the following prioritized criteria:
+    * A move that results in an immeditate win for the computer player.
+    * A move that blocks an opponent's win on their next turn.
+    * A random available center or corner cell on the board.
+    * A random available cell.
+  * In hard mode, articifical intelligence is used to determine the best move based on the current state of the board by considing each possible move and its possible outcome(s).
