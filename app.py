@@ -63,6 +63,7 @@ while is_playing:
     is_first_turn: bool = True
     is_game_over: bool = False
     
+    game.current_player = PlayerSymbol.X.value
     board.reset_board()
     game_timer.start()
     
