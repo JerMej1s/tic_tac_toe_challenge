@@ -73,7 +73,6 @@ while is_playing:
 
         # Get current player's move
         player_move: Optional[str] = None
-
         if (
             is_computer_playing
             and game.current_player == computer_player.symbol
