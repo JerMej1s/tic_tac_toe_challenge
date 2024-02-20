@@ -38,7 +38,7 @@ class Board:
         ]
 
     def get_win_probability(self, player_symbol: PlayerSymbol) -> float:
-        num_wins = 0
+        num_wins: int = 0
 
         self.possible_boards = (
             set(
@@ -68,9 +68,11 @@ class Board:
             ):
                 num_wins += 1
 
-        num_possible_boards = len(self.possible_boards)
-        win_probability = (
-            num_wins / num_possible_boards if num_possible_boards else 0
+        num_possible_boards: int = len(self.possible_boards)
+        win_probability: float = (
+            num_wins / num_possible_boards
+            if num_possible_boards
+            else 0
         )
 
         return win_probability
@@ -78,7 +80,7 @@ class Board:
     def is_game_over(self) -> tuple[bool, str]:
         for wc in WINNING_COMBINATIONS:
             if self.board[wc[0]] == self.board[wc[1]] == self.board[wc[2]]:
-                winner = self.board[wc[0]]
+                winner: PlayerSymbol = self.board[wc[0]]
                 return True, winner
         
         if len(self.get_valid_moves()) == 0:
@@ -86,7 +88,7 @@ class Board:
         
         return False, None 
     
-    def evaluate_score(self, symbol: PlayerSymbol) -> Optional[int]:
+    def evaluate_score(self, symbol: PlayerSymbol) -> int:
         game_over, winner = self.is_game_over()
 
         if game_over:
@@ -97,4 +99,4 @@ class Board:
             else:
                 return -1
         else:
-            raise ValueError('Game is not over yet.')
+            raise ValueError('Game is not over.')

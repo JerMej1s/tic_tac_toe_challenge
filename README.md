@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-In this standard game of Tic Tac Toe, users can play in the console against another human player or against a computer player and choose between three difficulty levels: easy, medium, and hard.
+In this standard game of Tic Tac Toe, users can play in the console against another human player or against a computer player and choose between four difficulty levels: easy, medium, hard, and unbeatable.
 
 ### Motivation 🚸
 
@@ -47,11 +47,24 @@ During the game, on each human player's turn, the program estimates the probabil
 
 ## Computer Player Strategy 💻
 
-On the computer player's turn, the program will choose a move based on the difficulty level set by the user:
-  * In easy mode, the computer player always chooses a move at random.
-  * In medium mode, the computer player will choose a move based on the following prioritized criteria:
-    * A move that results in an immeditate win for the computer player.
-    * A move that blocks an opponent's win on their next turn.
-    * A random available center or corner cell on the board.
-    * A random available cell.
-  * In hard mode, articifical intelligence is used to determine the best move based on the current state of the board by considing each possible move and its possible outcome(s).
+On the computer player's turn, the program will choose a move based on the difficulty level set by the user.
+
+### Easy Mode
+
+In easy mode, artificial intelligence is used to determine the worst move for the computer player based on the current state of the game board by considing each possible move and its possible outcome(s). It chooses the move that gives the human player the best opportunity to win.
+
+### Medium Mode
+
+In medium mode, the computer always chooses a move at random.
+
+### Hard Mode
+
+In hard mode, the computer player will choose a move based on the following prioritized criteria:
+  * A move that results in an immeditate win for the computer player.
+  * A move that blocks an opponent's win on their next turn.
+  * A random available center or corner cell on the board.
+  * A random available cell.
+
+### Unbeatable Mode
+
+In unbeatable mode, articifical intelligence is used to determine the best move based on the current state of the game board by considing each possible move and its possible outcome(s). This player will always win or draw, and thus it is unbeatable.

@@ -30,14 +30,6 @@ while is_playing:
     is_computer_playing: bool = user.is_computer_playing()
 
     if is_computer_playing:
-        # Determine difficulty level
-        difficulty_level: DifficultyLevel = user.get_difficulty_level()
-        if difficulty_level is None:
-            # User entered 'q' to quit
-            is_playing = False
-            break
-        computer_player.difficulty_level = difficulty_level
-
         # Determine players' symbols
         is_computer_first: bool = user.does_computer_go_first()
         if is_computer_first is None:
@@ -54,6 +46,14 @@ while is_playing:
             if is_computer_first
             else PlayerSymbol.O.value
         )
+
+        # Determine difficulty level
+        difficulty_level: DifficultyLevel = user.get_difficulty_level()
+        if difficulty_level is None:
+            # User entered 'q' to quit
+            is_playing = False
+            break
+        computer_player.difficulty_level = difficulty_level
     elif is_computer_playing is None:
         # User entered 'q' to quit
         is_playing = False
