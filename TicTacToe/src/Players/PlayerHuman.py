@@ -1,10 +1,10 @@
 from typing import Optional
 
-from Board import Board
-from Player import Player
-from Timer import Timer, TimeUnit
-from User import ErrorMessage, UserInput
-from UserInterface import UserInterface
+from TicTacToe.src.Board import Board
+from TicTacToe.src.Players.Player import Player
+from TicTacToe.src.Services.Timer import Timer, TimeUnit
+from TicTacToe.src.User import ErrorMessage, UserInput
+from TicTacToe.src.UserInterface import UserInterface
 
 ui = UserInterface()
 probability_timer = Timer(TimeUnit.NANOSECONDS)

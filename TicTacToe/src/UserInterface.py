@@ -1,8 +1,8 @@
 import datetime
 
-from Board import Board
-from Game import Game, PlayerSymbol
-from Timer import TimeUnit
+from TicTacToe.src.Board import Board
+from TicTacToe.src.Game import Game, PlayerSymbol
+from TicTacToe.src.Services.Timer import TimeUnit
 
 class UserInterface:
     def __init__(self):
@@ -56,12 +56,12 @@ class UserInterface:
         ) -> None:
         x_time_unit = (
             TimeUnit.NANOSECONDS.value
-            if is_computer_playing and human_symbol == PlayerSymbol.O.value
+            if is_computer_playing and human_symbol == PlayerSymbol.O
             else TimeUnit.SECONDS.value
         )
         o_time_unit = (
             TimeUnit.NANOSECONDS.value
-            if is_computer_playing and human_symbol == PlayerSymbol.X.value
+            if is_computer_playing and human_symbol == PlayerSymbol.X
             else TimeUnit.SECONDS.value
         )
         
@@ -81,11 +81,11 @@ class UserInterface:
 
         x_win_count: int = len([
             game for game in game_history
-            if game.winner == PlayerSymbol.X.value
+            if game.winner == PlayerSymbol.X
         ])
         o_win_count: int = len([
             game for game in game_history
-            if game.winner == PlayerSymbol.O.value
+            if game.winner == PlayerSymbol.O
         ])
         
         x_win_percentage: float = round(x_win_count / game_count * 100, 2)

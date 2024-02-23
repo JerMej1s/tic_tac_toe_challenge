@@ -1,7 +1,7 @@
 import os
 import pickle
 
-from Game import Game
+from TicTacToe.src.Game import Game
 
 GAME_HISTORY_FILE = 'game_history.pkl'
 

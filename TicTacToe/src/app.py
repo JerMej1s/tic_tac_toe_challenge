@@ -2,11 +2,11 @@ from datetime import datetime
 from typing import Optional
 
 from Board import Board
-from DataService import DataService
 from Game import Game, PlayerSymbol
-from PlayerComputer import PlayerComputer
-from PlayerHuman import PlayerHuman
-from Timer import Timer, TimeUnit
+from Players.PlayerComputer import PlayerComputer
+from Players.PlayerHuman import PlayerHuman
+from Services.DataService import DataService
+from Services.Timer import Timer, TimeUnit
 from User import DifficultyLevel, User
 from UserInterface import UserInterface
 
@@ -37,14 +37,14 @@ while is_playing:
             is_playing = False
             break
         human_player.symbol = (
-            PlayerSymbol.O.value
+            PlayerSymbol.O
             if is_computer_first
-            else PlayerSymbol.X.value
+            else PlayerSymbol.X
         )
         computer_player.symbol = (
-            PlayerSymbol.X.value
+            PlayerSymbol.X
             if is_computer_first
-            else PlayerSymbol.O.value
+            else PlayerSymbol.O
         )
 
         # Determine difficulty level
@@ -62,7 +62,7 @@ while is_playing:
     # Start game
     is_first_turn: bool = True
     is_game_over: bool = False
-    game.current_player = PlayerSymbol.X.value
+    game.current_player = PlayerSymbol.X
     
     board.reset_board()
     game_timer.start()

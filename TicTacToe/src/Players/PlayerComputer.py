@@ -4,10 +4,10 @@ import random
 
 from typing import Optional
 
-from Board import Board
-from Game import PlayerSymbol
-from Player import Player
-from User import DifficultyLevel
+from TicTacToe.src.Board import Board
+from TicTacToe.src.Game import PlayerSymbol
+from TicTacToe.src.Players.Player import Player
+from TicTacToe.src.User import DifficultyLevel
 
 CENTER_AND_CORNERS = ['1', '3', '5', '7', '9']
 
@@ -19,9 +19,9 @@ class PlayerComputer(Player):
         new_board: Board = copy.deepcopy(board)
         valid_moves: list[str] = new_board.get_valid_moves()
         opponent_symbol: PlayerSymbol = (
-            PlayerSymbol.O.value
-            if self.symbol == PlayerSymbol.X.value
-            else PlayerSymbol.X.value
+            PlayerSymbol.O
+            if self.symbol == PlayerSymbol.X
+            else PlayerSymbol.X
         )
         move: Optional[str] = None
 
