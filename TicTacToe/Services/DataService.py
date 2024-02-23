@@ -1,17 +1,16 @@
 import os
 import pickle
 
-from Game import Game
+from TicTacToe.Game import Game
 
 GAME_HISTORY_FILE = 'game_history.pkl'
+
 
 class DataService:
     def __init__(self):
         pass
 
     def save_game_data(self, game: Game) -> None:
-        game.possible_boards = None
-
         try:
             with open(GAME_HISTORY_FILE, 'ab') as f:
                 pickle.dump(game, f)
