@@ -2,7 +2,7 @@ import itertools
 
 from datetime import datetime
 
-from src.Game import PlayerSymbol
+from TicTacToe.src.Game import PlayerSymbol
 
 # TODO: Remove duplicate boards and invalid boards.
 ALL_BOARDS = set(itertools.permutations('XXXXXOOOO', 9))

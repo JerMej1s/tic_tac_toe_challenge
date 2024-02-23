@@ -2,8 +2,8 @@ import pytest
 
 from datetime import datetime
 
-from src.Board import Board
-from src.Game import PlayerSymbol
+from TicTacToe.src.Board import Board
+from TicTacToe.src.Game import PlayerSymbol
 
 @pytest.mark.parametrize("player_symbol", [PlayerSymbol.X, PlayerSymbol.O])
 @pytest.mark.parametrize("cell", [str(i) for i in range(1, 10)])
