@@ -19,6 +19,9 @@ class Board:
         self.updated_at: datetime = datetime.now()
     
     def update_board(self, player_symbol: PlayerSymbol, cell: str) -> None:
+        if cell not in [str(i) for i in range(1, 10)]: 
+            raise ValueError('Invalid cell.')
+        
         cell_index = int(cell) - 1
         if self.board[cell_index] not in [
             PlayerSymbol.X,
@@ -33,6 +36,9 @@ class Board:
         self.updated_at = datetime.now()
 
     def clear_cell(self, cell: str) -> None:
+        if cell not in [str(i) for i in range(1, 10)]: 
+            raise ValueError('Invalid cell.')
+        
         self.board[int(cell) - 1] = cell
         self.updated_at = datetime.now()
 
