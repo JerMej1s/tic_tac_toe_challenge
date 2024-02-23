@@ -79,8 +79,8 @@ def test_reset_board(board, player_symbol, num_turns):
     cells = [str(i) for i in range(1, 10)]
     for _ in range(num_turns):
         cell = random.choice(cells)
-        board.update_board(player_symbol, cell)
         cells.remove(cell)
+        board.update_board(player_symbol, cell)
         player_symbol = (
             PlayerSymbol.X
             if player_symbol == PlayerSymbol.O
@@ -100,8 +100,8 @@ def test_get_valid_moves(board, player_symbol, num_turns):
     cells = [str(i) for i in range(1, 10)]
     for _ in range(num_turns):
         cell = random.choice(cells)
-        board.update_board(player_symbol, cell)
         cells.remove(cell)
+        board.update_board(player_symbol, cell)
         player_symbol = (
             PlayerSymbol.X
             if player_symbol == PlayerSymbol.O

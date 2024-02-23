@@ -21,6 +21,9 @@ class Game:
         )
 
     def tabulate_turn_duration(self, turn_duration: float) -> None:
+        if turn_duration < 0:
+            raise ValueError('Turn duration must be non-negative.')
+        
         if self.current_player == PlayerSymbol.X:
             self.player_x_turn_duration += turn_duration
         else:
