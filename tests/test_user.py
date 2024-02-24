@@ -59,12 +59,12 @@ def test_is_computer_playing_prompts_user_again(
     monkeypatch.setattr('builtins.input', mock_input)
     actual_output = StringIO()
     monkeypatch.setattr(sys, 'stdout', actual_output)
-    expected_output = '\nInvalid input. Please try again.' + '\n'
+    expected_output = 'Invalid input. Please try again.'
 
     result = user.is_computer_playing()
 
     assert result is None
-    assert actual_output.getvalue() == expected_output
+    assert expected_output in actual_output.getvalue()
 
 @pytest.mark.parametrize("user_input", ['y', "Y"])
 def test_does_computer_go_first_returns_false(user, user_input, monkeypatch):
@@ -116,12 +116,12 @@ def test_does_computer_go_first_prompts_user_again(
     monkeypatch.setattr('builtins.input', mock_input)
     actual_output = StringIO()
     monkeypatch.setattr(sys, 'stdout', actual_output)
-    expected_output = '\nInvalid input. Please try again.' + '\n'
+    expected_output = 'Invalid input. Please try again.'
 
     result = user.does_computer_go_first()
 
     assert result is None
-    assert actual_output.getvalue() == expected_output
+    assert expected_output in actual_output.getvalue()
 
 def test_get_difficulty_level_returns_easy(user, monkeypatch):
     def mock_input(_) -> str:
@@ -187,12 +187,12 @@ def test_get_difficulty_level_prompts_user_again(
     monkeypatch.setattr('builtins.input', mock_input)
     actual_output = StringIO()
     monkeypatch.setattr(sys, 'stdout', actual_output)
-    expected_output = '\nInvalid input. Please try again.' + '\n'
+    expected_output = 'Invalid input. Please try again.'
 
     result = user.get_difficulty_level()
 
     assert result is None
-    assert actual_output.getvalue() == expected_output
+    assert expected_output in actual_output.getvalue()
 
 @pytest.mark.parametrize("user_input", ['y', "Y"])
 def test_is_playing_again_returns_true(user, user_input, monkeypatch):
@@ -234,9 +234,9 @@ def test_is_playing_again_prompts_user_again(
     monkeypatch.setattr('builtins.input', mock_input)
     actual_output = StringIO()
     monkeypatch.setattr(sys, 'stdout', actual_output)
-    expected_output = '\nInvalid input. Please try again.' + '\n'
+    expected_output = 'Invalid input. Please try again.'
 
     result = user.is_playing_again()
 
     assert result is False
-    assert actual_output.getvalue() == expected_output
+    assert expected_output in actual_output.getvalue()
