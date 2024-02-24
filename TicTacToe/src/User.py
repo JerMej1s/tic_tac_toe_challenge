@@ -8,7 +8,7 @@ class DifficultyLevel(Enum):
     UNBEATABLE = 'unbeatable'
 
 class ErrorMessage(Enum):
-    INVALID_INPUT = "Invalid input. Please try again."
+    INVALID_INPUT = 'Invalid input. Please try again.'
 
 class UserInput(Enum):
     YES = 'y'
