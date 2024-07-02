@@ -67,4 +67,4 @@ In hard mode, the computer player will choose a move based on the following prio
 
 ### Unbeatable Mode
 
-In unbeatable mode, articifical intelligence is used to determine the best move based on the current state of the game board by considing each possible move and its possible outcome(s). This player will always win or draw, and thus it is unbeatable.
+In unbeatable mode, articifical intelligence is used to determine the best move based on the current state of the game board by considering each possible move and its possible outcome(s). This player will always win or draw, and thus it is unbeatable.
