@@ -51,7 +51,7 @@ On the computer player's turn, the program will choose a move based on the diffi
 
 ### Easy Mode
 
-In easy mode, artificial intelligence is used to determine the worst move for the computer player based on the current state of the game board by considing each possible move and its possible outcome(s). It chooses the move that gives the human player the best opportunity to win.
+In easy mode, artificial intelligence is used to determine the worst move for the computer player based on the current state of the game board by considering each possible move and its possible outcome(s). It chooses the move that gives the human player the best opportunity to win.
 
 ### Medium Mode
 
