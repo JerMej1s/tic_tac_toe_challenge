@@ -1,12 +1,13 @@
 import time
-
 from enum import Enum
 from typing import Optional
+
 
 class TimeUnit(Enum):
     SECONDS = 's'
     MILLISECONDS = 'ms'
     NANOSECONDS = 'ns'
+
 
 class Timer:
     def __init__(self, unit: TimeUnit = TimeUnit.SECONDS):
@@ -37,3 +38,4 @@ class Timer:
         self.duration = self.end_time - self.start_time
         
         return self.duration
+

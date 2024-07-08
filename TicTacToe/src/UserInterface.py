@@ -4,13 +4,13 @@ from TicTacToe.src.Board import Board
 from TicTacToe.src.Game import Game, PlayerSymbol
 from TicTacToe.src.Services.Timer import TimeUnit
 
+
 class UserInterface:
     def __init__(self):
         pass
     
     def print_game_start_message(self, datetime: datetime) -> None:
-        print(
-            "\nHello world! The game started at " +
+        print("\nHello world! The game started at " +
             f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}." +
             "\n\nLet's play Tic Tac Toe!"
         )
@@ -34,8 +34,7 @@ class UserInterface:
             probability: float,
             duration: float
         ) -> None:
-        print(
-            f"Player {player_symbol} has a {probability}% probability " +
+        print(f"Player {player_symbol} has a {probability}% probability " +
             f"to win, which took {duration} nanoseconds to calculate."
         )
 
@@ -65,8 +64,7 @@ class UserInterface:
             else TimeUnit.SECONDS.value
         )
         
-        print(
-            f"Player {PlayerSymbol.X.value} " +
+        print(f"Player {PlayerSymbol.X.value} " +
             f"took {round(game.player_x_turn_duration, 2)} " +
             f"{x_time_unit} to play. " +
             f"Player {PlayerSymbol.O.value} " +
@@ -94,9 +92,9 @@ class UserInterface:
         total_x_turn_duration: float = 0
         total_o_turn_duration: float = 0
 
-        print(
-            "\nGame History:" +
-            "\n-------------\n")
+        print("\nGame History:" +
+            "\n-------------\n"
+        )
         
         for game in game_history:
             game_num: int = game_history.index(game) + 1
@@ -112,8 +110,7 @@ class UserInterface:
             else:
                 winner_message: str = f"{game.winner} won"
             
-            print(
-                f"Game {game_num} took {game.duration} seconds " +
+            print(f"Game {game_num} took {game.duration} seconds " +
                 f"to play and {winner_message}. " +
                 f"{PlayerSymbol.X.value} took {x_turn_duration} seconds " +
                 "to play and " +
@@ -124,8 +121,7 @@ class UserInterface:
         # TODO: Handle case with mixed time units for same player,
         #       i.e., multiple-game sessions where the computer
         #       played as X and O.
-        print(
-            f"\nOut of {game_count} game(s), " +
+        print(f"\nOut of {game_count} game(s), " +
             f"{PlayerSymbol.X.value} won {x_win_percentage}% and " +
             f"{PlayerSymbol.O.value} won {o_win_percentage}%. " +
             "Congratulations!\n" +
@@ -135,11 +131,11 @@ class UserInterface:
             "seconds to play.\n")
 
     def print_game_end_message(self, datetime: datetime) -> None:
-        print(
-            "\nThe game ended at " +
+        print("\nThe game ended at " +
             f"{datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}." +
             "\n\nThanks for playing! Goodbye world!"
         )
 
     def print_end_program_message(self, run_time: datetime) -> None:
         print(f"\nProgram was running for {run_time} seconds.\n")
+

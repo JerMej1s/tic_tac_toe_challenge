@@ -1,7 +1,6 @@
 import copy
 import math
 import random
-
 from typing import Optional
 
 from TicTacToe.src.Board import Board
@@ -9,7 +8,9 @@ from TicTacToe.src.Game import PlayerSymbol
 from TicTacToe.src.Players.Player import Player
 from TicTacToe.src.User import DifficultyLevel
 
+
 CENTER_AND_CORNERS = ['1', '3', '5', '7', '9']
+
 
 class PlayerComputer(Player):
     def __init__(self) -> None:
@@ -30,7 +31,7 @@ class PlayerComputer(Player):
                 depth: int = 0,
                 is_maximizing: bool = True
             ) -> int:
-            game_over, _ = board.is_game_over()
+            (game_over, _) = board.is_game_over()
             
             if game_over:
                 return board.evaluate_score(self.symbol)
@@ -51,7 +52,7 @@ class PlayerComputer(Player):
 
             for valid_move in valid_moves:
                 new_board.update_board(symbol, valid_move)
-                is_game_over, _ = new_board.is_game_over()
+                (is_game_over, _) = new_board.is_game_over()
                 if is_game_over:
                     winning_move = valid_move
                     break
@@ -83,10 +84,8 @@ class PlayerComputer(Player):
                 move = str(random.choice(best_moves))
         elif self.difficulty_level == DifficultyLevel.HARD:
             # Try to win or block opponent's win
-            move = (
-                get_winning_move(self.symbol)
-                or get_winning_move(opponent_symbol)
-            )
+            move = get_winning_move(self.symbol) \
+                    or get_winning_move(opponent_symbol)
             if move is None:
                 # Choose a random corner or center
                 valid_center_and_corners = [
@@ -117,3 +116,4 @@ class PlayerComputer(Player):
             move = str(random.choice(valid_moves))
 
         return move
+

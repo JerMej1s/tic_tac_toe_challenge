@@ -1,9 +1,11 @@
 from enum import Enum
 from typing import Optional
 
+
 class PlayerSymbol(Enum):
     X = 'X' # Always goes first
     O = 'O'
+
 
 class Game:
     def __init__(self) -> None:
@@ -14,8 +16,7 @@ class Game:
         self.duration: Optional[float] = None
 
     def switch_player(self) -> None:
-        self.current_player = (
-            PlayerSymbol.O
+        self.current_player = (PlayerSymbol.O
             if self.current_player == PlayerSymbol.X
             else PlayerSymbol.X
         )
@@ -28,3 +29,4 @@ class Game:
             self.player_x_turn_duration += turn_duration
         else:
             self.player_o_turn_duration += turn_duration
+

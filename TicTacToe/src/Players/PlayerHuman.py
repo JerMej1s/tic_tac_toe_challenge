@@ -6,18 +6,21 @@ from TicTacToe.src.Services.Timer import Timer, TimeUnit
 from TicTacToe.src.User import ErrorMessage, UserInput
 from TicTacToe.src.UserInterface import UserInterface
 
+
 ui = UserInterface()
 probability_timer = Timer(TimeUnit.NANOSECONDS)
 
+
 class PlayerHuman(Player):
     def get_move(self, board: Board) -> Optional[str]:
-        valid_moves: list[str] = board.get_valid_moves()
-
         probability_timer.start()
         win_probability: float = round(
             board.get_win_probability(self.symbol) * 100, 2
         )
         probability_duration: float = round(probability_timer.stop(), 2)
+
+        valid_moves: list[str] = board.get_valid_moves()
+        move: Optional[str] = None
 
         while True:
             ui.print_board_timestamp(board.updated_at)
@@ -29,18 +32,18 @@ class PlayerHuman(Player):
             )
 
             user_input: str = input(
-                f"Player {self.symbol}, enter a number {valid_moves} " +
-                "or 'q' to quit: "
-            ).lower()
+                f"Player {self.symbol}, enter a number {valid_moves} or " +
+                f"{UserInput.QUIT.value} to {UserInput.QUIT.name.lower()}: "
+            ).strip().lower()
 
             if user_input in valid_moves:
                 move = user_input
                 break
             elif user_input == UserInput.QUIT.value:
-                move = None
                 break
             else:
                 print(f"\n{ErrorMessage.INVALID_INPUT.value}")
                 continue
 
         return move
+

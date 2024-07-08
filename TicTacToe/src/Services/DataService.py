@@ -3,7 +3,9 @@ import pickle
 
 from TicTacToe.src.Game import Game
 
+
 GAME_HISTORY_FILE = 'game_history.pkl'
+
 
 class DataService:
     def __init__(self):
@@ -39,3 +41,4 @@ class DataService:
             os.remove(GAME_HISTORY_FILE)
         except FileNotFoundError:
             pass
+
