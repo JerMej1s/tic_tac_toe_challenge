@@ -39,9 +39,7 @@ class UserInterface:
         )
 
     def print_winner(self, winner: str) -> None:
-        if winner == None:
-            return
-        elif winner == 'draw':
+        if winner == 'draw':
             print("It's a draw!\n")
         else:
             print(f"Player {winner} wins!\n")

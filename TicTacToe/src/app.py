@@ -29,11 +29,11 @@ is_playing: bool = True
 
 while is_playing:
     # Determine if computer is playing
-    is_computer_playing: bool = user.is_computer_playing()
+    is_computer_playing: Optional[bool] = user.is_computer_playing()
 
     if is_computer_playing:
         # Determine players' symbols
-        is_computer_first: bool = user.does_computer_go_first()
+        is_computer_first: Optional[bool] = user.does_computer_go_first()
         if is_computer_first is None:
             # User is quitting
             is_playing = False
@@ -48,7 +48,7 @@ while is_playing:
         )
 
         # Determine difficulty level
-        difficulty_level: DifficultyLevel = user.get_difficulty_level()
+        difficulty_level: Optional[DifficultyLevel] = user.get_difficulty_level()
         if difficulty_level is None:
             # User is quitting
             is_playing = False
@@ -62,7 +62,7 @@ while is_playing:
     # Start game
     is_first_turn: bool = True
     is_game_over: bool = False
-    game.current_player = PlayerSymbol.X
+    game.current_player = PlayerSymbol.X # always goes first
     
     board.reset_board()
     game_timer.start()
@@ -73,6 +73,7 @@ while is_playing:
 
         # Get current player's move
         player_move: Optional[str] = None
+        
         if (is_computer_playing
             and game.current_player == computer_player.symbol
         ):
@@ -87,24 +88,21 @@ while is_playing:
             turn_timer.start()
             player_move = human_player.get_move(board)
 
-            if player_move is None:
-                # User is quitting
-                is_playing = False
-                break
-            
-        if is_playing:
-            # Make move
-            board.update_board(game.current_player, player_move)
-            
-            # End turn
-            turn_duration: float = round(turn_timer.stop(), 2)
-            game.tabulate_turn_duration(turn_duration)
-            is_first_turn = False
-
-            # Check if game is over
-            (is_game_over, game.winner) = board.is_game_over()
-        else:
+        if player_move is None:
+            # User is quitting
+            is_playing = False
             break
+            
+        # Make move
+        board.update_board(game.current_player, player_move)
+        
+        # End turn
+        turn_duration: float = round(turn_timer.stop(), 2)
+        game.tabulate_turn_duration(turn_duration)
+        is_first_turn = False
+
+        # Check if game is over
+        (is_game_over, game.winner) = board.is_game_over()
 
     if is_playing:
         # Game is over but user has not quit

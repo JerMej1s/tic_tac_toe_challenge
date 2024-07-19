@@ -15,7 +15,8 @@ class PlayerHuman(Player):
     def get_move(self, board: Board) -> Optional[str]:
         probability_timer.start()
         win_probability: float = round(
-            board.get_win_probability(self.symbol) * 100, 2
+            board.get_win_probability(self.symbol) * 100,
+            2
         )
         probability_duration: float = round(probability_timer.stop(), 2)
 

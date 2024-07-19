@@ -12,8 +12,6 @@ class DataService:
         pass
 
     def save_game_data(self, game: Game) -> None:
-        game.possible_boards = None
-
         try:
             with open(GAME_HISTORY_FILE, 'ab') as f:
                 pickle.dump(game, f)

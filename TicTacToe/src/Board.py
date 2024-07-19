@@ -51,11 +51,11 @@ class Board:
     def get_win_probability(self, player_symbol: PlayerSymbol) -> float:
         num_wins: int = 0
 
-        self.possible_boards = (set(board for board in ALL_BOARDS
+        self.possible_boards = set(board for board in ALL_BOARDS
             if all(b == s for b, s in zip(board, self.board)
                 if not s in map(str, range(1, 10))
             )
-        ))
+        )
 
         possible_wins = (set(board for board in self.possible_boards
             if any(board[wc[0]] == board[wc[1]] == board[wc[2]]
@@ -92,13 +92,13 @@ class Board:
     def evaluate_score(self, symbol: PlayerSymbol) -> int:
         (game_over, winner) = self.is_game_over()
 
-        if game_over:
-            if winner == symbol:
-                return 1
-            elif winner == 'draw':
-                return 0
-            else:
-                return -1
-        else:
+        if not game_over:
             raise ValueError('Game is not over.')
+
+        if winner == symbol:
+            return 1
+        elif winner == 'draw':
+            return 0
+        else:
+            return -1
 

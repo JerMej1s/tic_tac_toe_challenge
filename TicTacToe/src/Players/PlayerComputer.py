@@ -19,12 +19,15 @@ class PlayerComputer(Player):
     def get_move(self, board: Board) -> str:
         new_board: Board = copy.deepcopy(board)
         valid_moves: list[str] = new_board.get_valid_moves()
+
+        if not valid_moves:
+            raise ValueError('No valid moves available.')
+        
         opponent_symbol: PlayerSymbol = (
             PlayerSymbol.O
             if self.symbol == PlayerSymbol.X
             else PlayerSymbol.X
         )
-        move: Optional[str] = None
 
         def minimax(
                 board: Board,
@@ -62,8 +65,9 @@ class PlayerComputer(Player):
             
             return winning_move
         
-        if (
-            self.difficulty_level == DifficultyLevel.UNBEATABLE
+        move: Optional[str] = None
+
+        if (self.difficulty_level == DifficultyLevel.UNBEATABLE
             and len(valid_moves) < 9
         ):
             # Use minimax algorithm to choose best move
@@ -85,7 +89,7 @@ class PlayerComputer(Player):
         elif self.difficulty_level == DifficultyLevel.HARD:
             # Try to win or block opponent's win
             move = get_winning_move(self.symbol) \
-                    or get_winning_move(opponent_symbol)
+                or get_winning_move(opponent_symbol)
             if move is None:
                 # Choose a random corner or center
                 valid_center_and_corners = [
@@ -111,7 +115,8 @@ class PlayerComputer(Player):
                     worst_moves.append(valid_move)
             if worst_moves:
                 move = str(random.choice(worst_moves))
-        else:
+        
+        if move is None:
             # Choose a random move
             move = str(random.choice(valid_moves))
 
